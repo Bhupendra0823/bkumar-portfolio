@@ -11,7 +11,7 @@ function App() {
       <div>
         <h1>Welcome to Bhupendra's Portfolio!</h1>
         <p>This is a placeholder for the portfolio content.</p>
-        <p>Content is loading.. Have patience please.</p>
+        <p>Content is loading.. Have patience please.....</p>
       </div>
     </>
   )
