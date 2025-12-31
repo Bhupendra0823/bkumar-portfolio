@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bhupendra Kumar | Resume</title>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --text-dark: #111827;
+      --text-light: #4b5563;
+      --border: #e5e7eb;
+      --bg: #f9fafb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    /* HEADER */
+    .header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .name {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .contact {
+      margin-top: 8px;
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .contact span {
+      margin-right: 15px;
+    }
+
+    /* SECTION */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+
+    /* EDUCATION */
+    .item {
+      margin-bottom: 14px;
+    }
+
+    .item-title {
+      font-weight: 600;
+    }
+
+    .item-subtitle {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .item-meta {
+      float: right;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    /* PROJECTS */
+    ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* SKILLS */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 10px;
+        padding: 25px;
+      }
+      .item-meta {
+        float: none;
+        display: block;
+        margin-top: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1 class="name">Bhupendra Kumar</h1>
+      <div class="contact">
+        <span>Email: bkumar0823@gmail.com</span>
+        <span>Mobile: (+91) 8864866262</span>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="section">
+      <div class="section-title">Education</div>
+
+      <div class="item">
+        <span class="item-title">B.Tech in Computer Science and Engineering</span>
+        <span class="item-meta">2019 – 2023</span>
+        <div class="item-subtitle">
+          Shri Ram Murti Smarak College of Engineering and Technology, Bareilly (AKTU) — 82.0%
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-title">Intermediate (ISC Board)</span>
+        <span class="item-meta">2018 – 2019</span>
+        <div class="item-subtitle">
+          Girish Prasad Memorial School, Bareilly — 79.0%
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-title">High School (ISC Board)</span>
+        <span class="item-meta">2016 – 2017</span>
+        <div class="item-subtitle">
+          Girish Prasad Memorial School, Bareilly — 81.83%
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section">
+      <div class="section-title">Projects</div>
+
+      <div class="item">
+        <div class="item-title">AUTH Mate — API | Android App | React Native</div>
+        <ul>
+          <li>Developed a secure authentication API for registration and login.</li>
+          <li>Implemented MVC architecture for scalable and maintainable code.</li>
+          <li><strong>Tech Stack:</strong> React Native, Node.js, Express, MongoDB</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Food Ordering Web Application (MEAN)</div>
+        <ul>
+          <li>Built a full-featured application for restaurants and customers.</li>
+          <li>Implemented modular architecture for scalability.</li>
+          <li><strong>Tech Stack:</strong> Angular, Node.js, Express, MongoDB</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Osteoarthritis Disease Identification</div>
+        <ul>
+          <li>Deep learning model to detect osteoarthritis using knee X-ray images.</li>
+          <li><strong>Tech:</strong> Python, Deep Learning</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">IoT Based Irrigation Control Android App</div>
+        <ul>
+          <li>Automated irrigation using ESP8266 based on environmental conditions.</li>
+          <li><strong>Tech:</strong> Java, XML, Firebase, Arduino IDE, ESP8266</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="section">
+      <div class="section-title">Experience</div>
+
+      <div class="item">
+        <span class="item-title">System Engineer | Grade C1 — Tata Consultancy Services</span>
+        <span class="item-meta">Dec 2023 – Present</span>
+        <ul>
+          <li>Developed a full-stack Java web application during training.</li>
+          <li>Worked on React.js UI components and JavaScript-based features.</li>
+          <li>Exposure to AWS and data-related technologies.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <span class="item-title">Software Engineer — Leasing Monk</span>
+        <span class="item-meta">Nov 2022 – Feb 2023</span>
+        <ul>
+          <li>Hands-on full-stack training with React.js and Node.js.</li>
+          <li>Built responsive UI layouts from Figma designs.</li>
+          <li>Developed reusable React components.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section">
+      <div class="section-title">Technical Skills</div>
+      <div class="skills">
+        <div>Core Java</div>
+        <div>Python (Core)</div>
+        <div>React.js</div>
+        <div>Angular</div>
+        <div>Node.js</div>
+        <div>React Native (Intermediate)</div>
+        <div>GenAI (Training)</div>
+        <div>AWS (Basic)</div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="section">
+      <div class="section-title">Certifications</div>
+      <ul>
+        <li>Microsoft Azure Data Fundamentals (DP-900) — July 2024</li>
+        <li>Deep Learning Training — Internshala (Jul–Aug 2022)</li>
+        <li>Computer Vision — Kaggle (Jun–Jul 2022)</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      © 2026 Bhupendra Kumar
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -26,33 +26,42 @@ function App() {
         <p style={styles.loading}>
           🚧 Work in progress — please check back later.
         </p>
+        <a
+          href="https://bkumar0823.space/resume"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={styles.resumeBtn}
+        >
+          View Resume
+        </a>
       </div>
+
     </div>
   )
 }
 
 const styles = {
-page: {
-  width: '100vw',
-  minHeight: '100vh',
-  background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '20px',
-  fontFamily: 'Arial, sans-serif',
-}
-,
- card: {
-  backgroundColor: '#ffffff',
-  borderRadius: '12px',
-  padding: '40px 30px',
-  maxWidth: '520px',
-  width: '100%',
-  textAlign: 'center',
-  boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-}
-,
+  page: {
+    width: '100vw',
+    minHeight: '100vh',
+    background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px',
+    fontFamily: 'Arial, sans-serif',
+  }
+  ,
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    padding: '40px 30px',
+    maxWidth: '520px',
+    width: '100%',
+    textAlign: 'center',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+  }
+  ,
   heading: {
     fontSize: '32px',
     marginBottom: '8px',
@@ -84,6 +93,20 @@ page: {
     color: '#2563eb',
     fontWeight: 'bold',
   },
+  resumeBtn: {
+  display: 'inline-block',
+  marginTop: '30px',
+  padding: '12px 28px',
+  backgroundColor: '#2563eb',
+  color: '#ffffff',
+  textDecoration: 'none',
+  borderRadius: '8px',
+  fontSize: '14px',
+  fontWeight: 'bold',
+  letterSpacing: '0.5px',
+  transition: 'background-color 0.3s ease',
+},
+
 }
 
 export default App
