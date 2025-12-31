@@ -4,6 +4,7 @@ function App() {
   return (
     <div style={styles.page}>
       <div style={styles.card}>
+        <title>Bhupendra Kumar - Portfolio</title>
         <h1 style={styles.heading}>
           Bhupendra Kumar
         </h1>
