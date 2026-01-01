@@ -8,7 +8,7 @@ const ViewResume = () => {
                 rel="noopener noreferrer"
                 style={styles.resumeBtn}
             >
-                View Resume
+                Resume
             </a>
         
     )
