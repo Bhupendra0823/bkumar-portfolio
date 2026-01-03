@@ -1,3 +1,4 @@
+import ViewResume from "../ViewResume/ViewResume"
 const Footer = () => {
   return (
     <footer style={styles.footer}>
@@ -39,11 +40,12 @@ const Footer = () => {
 
 const styles = {
   footer: {
+    width: '100vw',
     backgroundColor: '#0f2027',
     color: '#d1d5db',
     textAlign: 'center',
     padding: '20px',
-    marginTop: '40px',
+    // marginTop: '40px',
   },
   text: {
     fontSize: '13px',

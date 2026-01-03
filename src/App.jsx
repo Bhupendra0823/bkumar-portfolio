@@ -7,6 +7,7 @@ import Projects from './pages/Projects.jsx'
 import Home from './pages/Home.jsx'
 import Experience from './pages/Experience.jsx'
 import LearnerLog from './pages/LearnerLog.jsx'
+import Footer from './components/Footer/Footer.jsx'
 function App() {
   return (
     <>
@@ -19,7 +20,7 @@ function App() {
         <Route path="/experience" element={<Experience/>} />
         <Route path="/LearningLog" element={<LearnerLog/>} />
       </Routes>
-
+      <Footer />
     </>
   )
 }
