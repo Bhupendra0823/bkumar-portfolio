@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bhupendra Kumar | Resume</title>
 
   <style>
@@ -18,6 +19,17 @@
       box-sizing: border-box;
     }
 
+    .contact a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+
     body {
       margin: 0;
       background: var(--bg);
@@ -32,10 +44,9 @@
       background: #ffffff;
       padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     }
 
-    /* HEADER */
     .header {
       border-bottom: 2px solid var(--border);
       padding-bottom: 20px;
@@ -58,7 +69,6 @@
       margin-right: 15px;
     }
 
-    /* SECTION */
     .section {
       margin-bottom: 28px;
     }
@@ -73,7 +83,6 @@
       padding-bottom: 4px;
     }
 
-    /* EDUCATION */
     .item {
       margin-bottom: 14px;
     }
@@ -93,7 +102,6 @@
       color: var(--text-light);
     }
 
-    /* PROJECTS */
     ul {
       margin: 8px 0 0 18px;
       padding: 0;
@@ -103,7 +111,6 @@
       margin-bottom: 6px;
     }
 
-    /* SKILLS */
     .skills {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -111,7 +118,6 @@
       font-size: 14px;
     }
 
-    /* FOOTER */
     .footer {
       text-align: center;
       font-size: 12px;
@@ -124,6 +130,7 @@
         margin: 10px;
         padding: 25px;
       }
+
       .item-meta {
         float: none;
         display: block;
@@ -132,17 +139,65 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="container">
 
     <!-- HEADER -->
     <div class="header">
-      <h1 class="name">Bhupendra Kumar</h1>
+      <center><h1 class="name">Bhupendra Kumar</h1></center>
       <div class="contact">
-        <span>Email: bkumar0823@gmail.com</span>
-        <span>Mobile: (+91) 8864866262</span>
+        <div>
+
+          <span>Email: <a href="mailto:bkumar0823@gmail.com">bkumar0823@gmail.com</a></span>
+        </div>
+        <div>
+
+          <span>Mobile: <a href="tel:+918864866262">(+91) 8864866262</a></span><br />
+        </div>
+        <div>
+          <span>
+            GitHub:
+            <a href="https://github.com/Bhupendra0823" target="_blank">
+              github.com/Bhupendra0823
+            </a>
+          </span>
+
+        </div>
+
+        <div>
+          <span>
+            LinkedIn:
+            <a href="https://www.linkedin.com/in/bkumar0823/" target="_blank">
+              linkedin.com/in/bkumar0823/
+            </a>
+          </span>
+
+        </div>
+        <div>
+
+          <span>
+            Portfolio:
+            <a href="https://bkumar0823.space" target="_blank">
+              https://bkumar0823.space
+            </a>
+          </span>
+        </div>
       </div>
+
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="section">
+      <div class="section-title">Professional Summary</div>
+      <p>
+        Full-stack software engineer with strong foundations in <strong>Generative AI</strong>,
+        <strong>LLMs</strong>, and <strong>AI-driven backend systems</strong>.
+        Experienced in building REST APIs, web applications, and GenAI prototypes using
+        <strong>FastAPI, Node.js, React, MongoDB</strong>.
+        Actively transitioning into <strong>GenAI-focused backend / full-stack roles</strong>.
+      </p>
     </div>
 
     <!-- EDUCATION -->
@@ -150,7 +205,7 @@
       <div class="section-title">Education</div>
 
       <div class="item">
-        <span class="item-title">B.Tech in Computer Science and Engineering</span>
+        <span class="item-title">B.Tech – Computer Science & Engineering</span>
         <span class="item-meta">2019 – 2023</span>
         <div class="item-subtitle">
           Shri Ram Murti Smarak College of Engineering and Technology, Bareilly (AKTU) — 82.0%
@@ -174,41 +229,84 @@
       </div>
     </div>
 
-    <!-- PROJECTS -->
+    <!-- GENAI PROJECTS -->
     <div class="section">
-      <div class="section-title">Projects</div>
+      <div class="section-title">Generative AI Projects</div>
+
+      <!-- <div class="item">
+        <div class="item-title">AI Knowledge Base Chatbot (RAG – Prototype)</div>
+        <ul>
+          <li>Designed a Retrieval-Augmented Generation (RAG) based chatbot for document-based Q&A.</li>
+          <li>Implemented document ingestion, text chunking, embeddings, and contextual response generation.</li>
+          <li>Explored vector similarity search and API-driven AI backend architecture.</li>
+          <li><strong>Tech:</strong> Python, FastAPI, LLMs, RAG, MongoDB (metadata)</li>
+        </ul>
+      </div> -->
 
       <div class="item">
-        <div class="item-title">AUTH Mate — API | Android App | React Native</div>
+        <div class="item-title">AI Resume Analyzer & Job Matching Tool</div>
         <ul>
-          <li>Developed a secure authentication API for registration and login.</li>
-          <li>Implemented MVC architecture for scalable and maintainable code.</li>
-          <li><strong>Tech Stack:</strong> React Native, Node.js, Express, MongoDB</li>
+          <li>Built an AI-assisted system to analyze resumes and suggest improvements using LLM prompts.</li>
+          <li>Compared resumes with job descriptions using semantic similarity concepts.</li>
+          <li><strong>Tech:</strong> Python, Prompt Engineering, LLMs</li>
         </ul>
       </div>
 
       <div class="item">
-        <div class="item-title">Food Ordering Web Application (MEAN)</div>
+        <div class="item-title">Natural Language to Database Query Generator</div>
         <ul>
-          <li>Built a full-featured application for restaurants and customers.</li>
-          <li>Implemented modular architecture for scalability.</li>
-          <li><strong>Tech Stack:</strong> Angular, Node.js, Express, MongoDB</li>
+          <li>Designed a proof-of-concept system to convert natural language into database queries.</li>
+          <li>Focused on safe query generation and backend validation patterns.</li>
+          <li><strong>Tech:</strong> FastAPI, MongoDB, LLM reasoning</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Local LLM Exploration using Ollama</div>
+        <ul>
+          <li>Explored locally hosted LLMs for offline inference and privacy-focused AI systems.</li>
+          <li>Evaluated prompt behavior and resource usage of open-source models.</li>
+          <li><strong>Tech:</strong> Ollama, Open-source LLMs</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SOFTWARE PROJECTS -->
+    <div class="section">
+      <div class="section-title">Software Development Projects</div>
+
+      <div class="item">
+        <div class="item-title">AUTH Mate — Authentication API & Mobile App</div>
+        <ul>
+          <li>Developed a versatile API for secure registration and login authentication.</li>
+          <li>Developed secure registration and login APIs using MVC architecture.</li>
+          <li><strong>Tech:</strong> React Native, Node.js, Express, MongoDB</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Food Ordering Web Application (MEAN Stack)</div>
+        <ul>
+          <li>Built a full-featured web app for restaurants and customers, including order management and kitchen handling.</li>
+          <li>Followed modular architecture to ensure scalability.</li>
+          <li><strong>Tech:</strong> Angular, Node.js, Express, MongoDB</li>
         </ul>
       </div>
 
       <div class="item">
         <div class="item-title">Osteoarthritis Disease Identification</div>
         <ul>
-          <li>Deep learning model to detect osteoarthritis using knee X-ray images.</li>
-          <li><strong>Tech:</strong> Python, Deep Learning</li>
+          <li>Deep learning model to detect osteoarthritis from knee X-ray images.</li>
+          <li><strong>Tech:</strong> Python, Deep Learning, Computer Vision</li>
         </ul>
       </div>
 
       <div class="item">
-        <div class="item-title">IoT Based Irrigation Control Android App</div>
+        <div class="item-title">IoT-Based Smart Irrigation Control System</div>
         <ul>
-          <li>Automated irrigation using ESP8266 based on environmental conditions.</li>
-          <li><strong>Tech:</strong> Java, XML, Firebase, Arduino IDE, ESP8266</li>
+          <li>Arduino ESP8266 with C language implementing a research based project to automate the irrigation pump according to the environmental conditions of crop. </li>
+          <!-- <li>Automated irrigation using ESP8266 based on environmental conditions.</li> -->
+          <li><strong>Tech:</strong> Java, Firebase, Arduino, ESP8266</li>
         </ul>
       </div>
     </div>
@@ -218,12 +316,13 @@
       <div class="section-title">Experience</div>
 
       <div class="item">
-        <span class="item-title">System Engineer | Grade C1 — Tata Consultancy Services</span>
+        <span class="item-title">System Engineer — Tata Consultancy Services</span>
         <span class="item-meta">Dec 2023 – Present</span>
         <ul>
-          <li>Developed a full-stack Java web application during training.</li>
-          <li>Worked on React.js UI components and JavaScript-based features.</li>
-          <li>Exposure to AWS and data-related technologies.</li>
+          <li>Developed full-stack Java and web applications during enterprise training.</li>
+          <li>Worked with React.js and JavaScript for UI development.</li>
+          <li>Gained exposure to AWS and data-related technologies.</li>
+          <li>Upskilled in Generative AI concepts including LLMs and RAG pipelines.</li>
         </ul>
       </div>
 
@@ -231,9 +330,8 @@
         <span class="item-title">Software Engineer — Leasing Monk</span>
         <span class="item-meta">Nov 2022 – Feb 2023</span>
         <ul>
-          <li>Hands-on full-stack training with React.js and Node.js.</li>
-          <li>Built responsive UI layouts from Figma designs.</li>
-          <li>Developed reusable React components.</li>
+          <li>Hands-on full-stack development with React.js and Node.js.</li>
+          <li>Built reusable components and responsive UI from Figma designs.</li>
         </ul>
       </div>
     </div>
@@ -242,13 +340,16 @@
     <div class="section">
       <div class="section-title">Technical Skills</div>
       <div class="skills">
-        <div>Core Java</div>
-        <div>Python (Core)</div>
+        <div>Python</div>
+        <div>Java</div>
+        <div>FastAPI</div>
+        <div>Node.js</div>
         <div>React.js</div>
         <div>Angular</div>
-        <div>Node.js</div>
-        <div>React Native (Intermediate)</div>
-        <div>GenAI (Training)</div>
+        <div>MongoDB</div>
+        <div>LLMs & Prompt Engineering</div>
+        <div>RAG & Embeddings</div>
+        <div>Ollama (Local LLMs)</div>
         <div>AWS (Basic)</div>
       </div>
     </div>
@@ -270,4 +371,5 @@
   </div>
 
 </body>
+
 </html>
