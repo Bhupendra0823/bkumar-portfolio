@@ -8,7 +8,7 @@ const Footer = () => {
 
       <div style={styles.links}>
         <a
-          href="https://github.com/"
+          href="https://github.com/Bhupendra0823"
           target="_blank"
           rel="noopener noreferrer"
           style={styles.link}
@@ -17,7 +17,7 @@ const Footer = () => {
         </a>
 
         <a
-          href="https://www.linkedin.com/"
+          href="https://www.linkedin.com/in/bkumar0823/"
           target="_blank"
           rel="noopener noreferrer"
           style={styles.link}
