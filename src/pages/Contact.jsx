@@ -37,8 +37,38 @@ const Contact = () => {
 
         </div>
 
+        <form action="https://getform.io/f/akkepdwa" method='POST' style={styles.form}>
+          <h3 style={styles.formTitle}>Send me a message</h3>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            style={styles.input}
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            style={styles.input}
+            required
+          />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="4"
+            style={styles.textarea}
+            required
+          ></textarea>
+          {/* OPTIONAL but valid */}
+          <input type="hidden" name="_subject" value="New Portfolio Contact" />
+
+          <button type="submit" style={styles.submitBtn}>
+            Send Message
+          </button>
+        </form>
         <p style={styles.note}>
-          🚧 A contact form will be added here soon.
+          ❤️ Thanks for visiting my portfolio. I’m always open to feedback, ideas, and collaboration opportunities.❤️
         </p>
 
       </div>
@@ -51,7 +81,7 @@ const styles = {
 
   /* PAGE */
   page: {
-    width: '100vw',
+    width: '100%',
     minHeight: '100vh',
     background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
     display: 'flex',
@@ -117,10 +147,55 @@ const styles = {
   note: {
     marginTop: '40px',
     fontSize: '14px',
-    color: '#2563eb',
+    color: '#ffffffff',
     fontWeight: 'bold',
   },
+  form: {
+    marginTop: '50px',
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    padding: '30px',
+    boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
+    maxWidth: '500px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
 
+  formTitle: {
+    marginBottom: '20px',
+    color: '#1f2933',
+  },
+
+  input: {
+    width: '100%',
+    padding: '10px',
+    marginBottom: '15px',
+    borderRadius: '6px',
+    border: '1px solid #d1d5db',
+    fontSize: '14px',
+  },
+
+  textarea: {
+    width: '100%',
+    padding: '10px',
+    marginBottom: '15px',
+    borderRadius: '6px',
+    border: '1px solid #d1d5db',
+    fontSize: '14px',
+    resize: 'none',
+  },
+
+  submitBtn: {
+    width: '100%',
+    padding: '12px',
+    backgroundColor: '#2563eb',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+  },
 
 }
 
