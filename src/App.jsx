@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx'
 import Experience from './pages/Experience.jsx'
 import LearnerLog from './pages/LearnerLog.jsx'
 import Footer from './components/Footer/Footer.jsx'
+import UpdateLearnerLog from './pages/UpdateLearnerLog.jsx'
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/experience" element={<Experience/>} />
         <Route path="/LearningLog" element={<LearnerLog/>} />
+        <Route path="/update-learner-log" element={<UpdateLearnerLog/>} />
       </Routes>
       <Footer />
     </>
