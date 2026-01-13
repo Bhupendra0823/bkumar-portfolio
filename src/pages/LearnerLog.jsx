@@ -3,17 +3,25 @@ import React, { useEffect, useState } from 'react'
 const LearnerLog = () => {
   const [logs, setLogs] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    fetch("https://learninglogmanager.onrender.com/logs")
-      .then(res => res.json())
-      .then(data => {
-        setLogs(data)
-        setLoading(false)
+    fetch('https://learninglogmanager.onrender.com/logs')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed')
+        return res.json()
       })
-      .catch(err => {
-        console.error("Failed to fetch logs", err)
-        setLoading(false)
+      .then(data => {
+        setTimeout(() => {
+          setLogs(data)
+          setLoading(false)
+        }, 5000)
+      })
+      .catch(() => {
+        setTimeout(() => {
+          setError(true)
+          setLoading(false)
+        }, 5000)
       })
   }, [])
 
@@ -28,8 +36,45 @@ const LearnerLog = () => {
 
         <div style={styles.divider}></div>
 
+        {/* Loading */}
+        {loading && (
+          <div style={styles.logCard}>
+            <h3 style={styles.logTitle}>Loading learning logs…</h3>
+            <p style={styles.logItem}>
+              This section is powered by a live backend service.
+            </p>
+            <p style={styles.logItem}>
+              If the service hasn’t been used recently, it may take a moment to start.
+            </p>
+            <p style={styles.logNext}>
+              What this section represents:
+            </p>
+            <ul style={styles.list}>
+              <li>Why I learn a particular concept</li>
+              <li>How I apply it through hands-on work</li>
+              <li>What I am capable of building today</li>
+              <li>What I plan to learn next</li>
+            </ul>
+            <p style={styles.logItem}>
+              Thank you for your patience.
+            </p>
+          </div>
+        )}
+
+        {/* Error */}
+        {!loading && error && (
+          <div style={styles.logCard}>
+            <h3 style={styles.logTitle}>Unable to load learning logs</h3>
+            <p style={styles.logItem}>
+              The backend service is currently unavailable.
+              Please try again later.
+            </p>
+          </div>
+        )}
+        
+        {/* Logs */}
         {loading ? (
-          <p style={{ color: "#fff" }}>Loading logs...</p>
+          <p style={{ color: "#fff" }}></p>
         ) : (
           <div style={styles.logList}>
             {logs.map(log => (
