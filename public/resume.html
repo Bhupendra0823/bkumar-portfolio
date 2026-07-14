@@ -7,134 +7,455 @@
   <title>Bhupendra Kumar | Resume</title>
 
   <style>
+    /* ===== CSS VARIABLES ===== */
     :root {
       --primary: #2563eb;
-      --text-dark: #111827;
-      --text-light: #4b5563;
-      --border: #e5e7eb;
-      --bg: #f9fafb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #7c3aed;
+      --gradient-start: #60a5fa;
+      --gradient-end: #a78bfa;
+      --text-dark: #0f172a;
+      --text-mid: #1e293b;
+      --text-light: #475569;
+      --text-muted: #94a3b8;
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    /* ===== RESET & BASE ===== */
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
-    .contact a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .contact a:hover {
-      text-decoration: underline;
-    }
-
-
     body {
-      margin: 0;
       background: var(--bg);
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
       color: var(--text-dark);
-      line-height: 1.6;
+      line-height: 1.7;
+      padding: 30px 20px;
     }
 
+    /* ===== CONTAINER ===== */
     .container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 45px 50px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
     }
 
+    /* Decorative top bar */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    }
+
+    /* ===== HEADER ===== */
     .header {
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 20px;
+      padding-bottom: 25px;
       margin-bottom: 30px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
     .name {
-      font-size: 34px;
-      font-weight: 700;
-      margin: 0;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-dark);
+      margin-bottom: 4px;
     }
 
-    .contact {
-      margin-top: 8px;
+    .name-highlight {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title-role {
+      font-size: 18px;
+      font-weight: 500;
       color: var(--text-light);
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 20px;
       font-size: 14px;
+      color: var(--text-light);
     }
 
-    .contact span {
-      margin-right: 15px;
+    .contact-grid .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
+    .contact-grid .contact-item .icon {
+      font-size: 16px;
+    }
+
+    .contact-grid a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .contact-grid a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    .contact-divider {
+      color: var(--border);
+      font-weight: 300;
+    }
+
+    /* ===== SECTIONS ===== */
     .section {
-      margin-bottom: 28px;
+      margin-bottom: 30px;
+    }
+
+    .section:last-of-type {
+      margin-bottom: 0;
     }
 
     .section-title {
       font-size: 18px;
       font-weight: 700;
       color: var(--primary);
-      margin-bottom: 12px;
-      border-bottom: 2px solid var(--primary);
-      display: inline-block;
-      padding-bottom: 4px;
-    }
-
-    .item {
       margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 3px solid var(--primary);
+      display: inline-block;
+      letter-spacing: 0.3px;
+      position: relative;
     }
 
-    .item-title {
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+      border-radius: 2px;
+    }
+
+    /* ===== SUMMARY ===== */
+    .summary-text {
+      font-size: 15.5px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      padding: 4px 0;
+    }
+
+    .summary-text strong {
+      color: var(--primary);
       font-weight: 600;
     }
 
+    .highlight-badge {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--primary);
+      padding: 0 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* ===== ITEMS ===== */
+    .item {
+      margin-bottom: 16px;
+      padding: 14px 18px;
+      background: var(--bg);
+      border-radius: 8px;
+      border-left: 3px solid var(--primary);
+      transition: var(--transition);
+    }
+
+    .item:hover {
+      border-left-color: var(--secondary);
+      background: #eef2ff;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .item-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-dark);
+    }
+
     .item-subtitle {
-      color: var(--text-light);
       font-size: 14px;
+      color: var(--text-light);
+      font-weight: 500;
     }
 
     .item-meta {
-      float: right;
-      font-size: 14px;
-      color: var(--text-light);
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      background: rgba(148, 163, 184, 0.12);
+      padding: 2px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
     }
 
-    ul {
-      margin: 8px 0 0 18px;
+    .item ul {
+      margin: 6px 0 0 20px;
       padding: 0;
     }
 
-    li {
-      margin-bottom: 6px;
-    }
-
-    .skills {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 10px;
+    .item li {
       font-size: 14px;
+      color: var(--text-mid);
+      margin-bottom: 4px;
+      line-height: 1.6;
     }
 
+    .item li::marker {
+      color: var(--primary);
+    }
+
+    /* ===== SKILLS ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .skill-tag {
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(167, 139, 250, 0.08));
+      color: var(--text-dark);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      transition: var(--transition);
+    }
+
+    .skill-tag:hover {
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(167, 139, 250, 0.15));
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    }
+
+    .skill-tag.highlight {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    /* ===== CERTIFICATIONS ===== */
+    .cert-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+    }
+
+    .cert-list li {
+      font-size: 14px;
+      color: var(--text-mid);
+      padding: 6px 0 6px 28px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .cert-list li::before {
+      content: '🏆';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      font-size: 16px;
+    }
+
+    /* ===== FOOTER ===== */
     .footer {
       text-align: center;
-      font-size: 12px;
-      color: var(--text-light);
+      padding-top: 25px;
       margin-top: 30px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
     }
 
-    @media (max-width: 600px) {
+    .footer .heart {
+      color: #ef4444;
+      display: inline-block;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      body {
+        padding: 16px 10px;
+      }
+
       .container {
-        margin: 10px;
-        padding: 25px;
+        padding: 25px 20px;
+        border-radius: 8px;
+      }
+
+      .name {
+        font-size: 30px;
+      }
+
+      .title-role {
+        font-size: 15px;
+      }
+
+      .contact-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .contact-divider {
+        display: none;
+      }
+
+      .contact-grid .contact-item {
+        font-size: 13px;
+      }
+
+      .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
       }
 
       .item-meta {
-        float: none;
-        display: block;
-        margin-top: 4px;
+        white-space: normal;
+        font-size: 12px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      }
+
+      .cert-list {
+        grid-template-columns: 1fr;
+      }
+
+      .item {
+        padding: 12px 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 18px 14px;
+      }
+
+      .name {
+        font-size: 26px;
+      }
+
+      .section-title {
+        font-size: 16px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 6px;
+      }
+
+      .skill-tag {
+        font-size: 12px;
+        padding: 4px 10px;
+      }
+    }
+
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .container {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 30px 40px;
+      }
+
+      .container::before {
+        display: none;
+      }
+
+      .item {
+        background: #f8fafc;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .item:hover {
+        background: #f8fafc;
+        border-left-color: var(--primary);
+      }
+
+      .skill-tag:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .footer .heart {
+        animation: none;
       }
     }
   </style>
@@ -144,228 +465,285 @@
 
   <div class="container">
 
-    <!-- HEADER -->
-    <div class="header">
-      <center><h1 class="name">Bhupendra Kumar</h1></center>
-      <div class="contact">
-        <div>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+      <h1 class="name">
+        <span class="name-highlight">Bhupendra</span> Kumar
+      </h1>
+      <p class="title-role">Software Engineer | GenAI &amp; Full Stack Developer</p>
 
-          <span>Email: <a href="mailto:bkumar0823@gmail.com">bkumar0823@gmail.com</a></span>
-        </div>
-        <div>
-
-          <span>Mobile: <a href="tel:+918864866262">(+91) 8864866262</a></span><br />
-        </div>
-        <div>
-          <span>
-            GitHub:
-            <a href="https://github.com/Bhupendra0823" target="_blank">
-              github.com/Bhupendra0823
-            </a>
-          </span>
-
-        </div>
-
-        <div>
-          <span>
-            LinkedIn:
-            <a href="https://www.linkedin.com/in/bkumar0823/" target="_blank">
-              linkedin.com/in/bkumar0823/
-            </a>
-          </span>
-
-        </div>
-        <div>
-
-          <span>
-            Portfolio:
-            <a href="https://bkumar0823.space" target="_blank">
-              https://bkumar0823.space
-            </a>
-          </span>
-        </div>
+      <div class="contact-grid">
+        <span class="contact-item">
+          <span class="icon">✉️</span>
+          <a href="mailto:bkumar0823@gmail.com">bkumar0823@gmail.com</a>
+        </span>
+        <span class="contact-divider">|</span>
+        <span class="contact-item">
+          <span class="icon">📱</span>
+          <a href="tel:+918864866262">(+91) 8864866262</a>
+        </span>
+        <span class="contact-divider">|</span>
+        <span class="contact-item">
+          <span class="icon">🐙</span>
+          <a href="https://github.com/Bhupendra0823" target="_blank">github.com/Bhupendra0823</a>
+        </span>
+        <span class="contact-divider">|</span>
+        <span class="contact-item">
+          <span class="icon">🔗</span>
+          <a href="https://www.linkedin.com/in/bkumar0823/" target="_blank">linkedin.com/in/bkumar0823</a>
+        </span>
+        <span class="contact-divider">|</span>
+        <span class="contact-item">
+          <span class="icon">🌐</span>
+          <a href="https://bkumar0823.space" target="_blank">bkumar0823.space</a>
+        </span>
       </div>
+    </header>
 
-    </div>
-
-    <!-- SUMMARY -->
-    <div class="section">
-      <div class="section-title">Professional Summary</div>
-      <p>
-        Full-stack software engineer with strong foundations in <strong>Generative AI</strong>,
-        <strong>LLMs</strong>, and <strong>AI-driven backend systems</strong>.
-        Experienced in building REST APIs, web applications, and GenAI prototypes using
-        <strong>FastAPI, Node.js, React, MongoDB</strong>.
-        Actively transitioning into <strong>GenAI-focused backend / full-stack roles</strong>.
+    <!-- ===== PROFESSIONAL SUMMARY ===== -->
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary-text">
+        <strong>Software Engineer</strong> with <strong>2.5+ years</strong> of experience in designing and developing
+        scalable backend systems, <strong>AI-powered applications</strong>, and full-stack web solutions.
+        Experienced in <strong>Python, FastAPI, React.js, REST APIs, MongoDB, and Large Language Models (LLMs)</strong>
+        with hands-on experience building <strong>Retrieval-Augmented Generation (RAG)</strong> systems,
+        multi-tenant AI platforms, document processing pipelines, and enterprise web applications.
+        Passionate about <strong>Generative AI</strong>, backend architecture, API development, and building
+        production-ready AI applications.
       </p>
-    </div>
+    </section>
 
-    <!-- EDUCATION -->
-    <div class="section">
-      <div class="section-title">Education</div>
+    <!-- ===== EXPERIENCE ===== -->
+    <section class="section">
+      <h2 class="section-title">Experience</h2>
 
       <div class="item">
-        <span class="item-title">B.Tech – Computer Science & Engineering</span>
-        <span class="item-meta">2019 – 2023</span>
+        <div class="item-header">
+          <span class="item-title">System Engineer</span>
+          <span class="item-meta">Dec 2023 – Present</span>
+        </div>
+        <div class="item-subtitle">Tata Consultancy Services — New Delhi</div>
+        <ul>
+          <li>Designed and developed enterprise AI applications using <strong>Python, FastAPI, React.js, PostgreSQL, REST APIs, and LLMs</strong>.</li>
+          <li>Contributing to an <strong>AI-powered healthcare Claim Audit</strong> platform, developing backend services and AI workflows to automate evidence collection and streamline audit processes.</li>
+          <li>Developing <strong>Agentic AI workflows</strong> using <strong>LangGraph</strong> for intelligent task orchestration, evidence retrieval, and AI-assisted claim analysis.</li>
+          <li>Engineered configurable <strong>Retrieval-Augmented Generation (RAG)</strong> pipelines supporting document ingestion, chunking strategies, vector retrieval, prompt customization, and AI response generation.</li>
+          <li>Developed a <strong>multi-tenant AI platform</strong> featuring Super Admin, Tenant Admin, and End User roles with secure tenant isolation and configurable AI workflows.</li>
+          <li>Implemented secure authentication and authorization using <strong>JWT</strong> and <strong>Role-Based Access Control (RBAC)</strong>.</li>
+          <li>Developed proof-of-concept AI applications including a <strong>Natural Language-to-Database Query Generator</strong> and an <strong>AI Resume Analyzer</strong> utilizing prompt engineering and semantic similarity techniques.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Software Engineer</span>
+          <span class="item-meta">Nov 2022 – Feb 2023</span>
+        </div>
+        <div class="item-subtitle">Leasing Monk — Noida</div>
+        <ul>
+          <li>Completed full-stack web development training focused on modern JavaScript technologies.</li>
+          <li>Developed responsive UI components using <strong>React.js</strong> based on Figma designs.</li>
+          <li>Collaborated with the development team to build reusable frontend components and improve application usability.</li>
+          <li>Worked with <strong>REST APIs</strong> and frontend integration following component-based architecture.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section class="section">
+      <h2 class="section-title">Projects</h2>
+
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">AI-Powered Claim Audit &amp; Evidence Collection Platform</span>
+        </div>
+        <ul>
+          <li>Contributing to an <strong>AI-powered healthcare claim auditing</strong> platform to streamline evidence collection and audit workflows.</li>
+          <li>Building <strong>Agentic AI workflows</strong> using <strong>LangGraph</strong> to automate evidence gathering, claim analysis, and intelligent audit assistance.</li>
+          <li>Developing backend services using <strong>FastAPI</strong> for claim processing, audit orchestration, and secure REST API integration.</li>
+          <li>Working with <strong>PostgreSQL</strong> to manage healthcare claim data, audit records, and application metadata.</li>
+          <li><strong>Tech:</strong> Python, FastAPI, React.js, PostgreSQL, LangGraph, Agentic AI, LLMs</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Multi-Tenant Enterprise RAG Platform</span>
+        </div>
+        <ul>
+          <li>Designed and implemented a <strong>multi-tenant enterprise RAG platform</strong> supporting Super Admin, Tenant Admin, and End User roles.</li>
+          <li>Built tenant onboarding and user management modules allowing organizations to independently manage AI configurations and knowledge repositories.</li>
+          <li>Developed configurable <strong>RAG pipelines</strong> supporting document upload, chunking strategies, Top-K retrieval, temperature, and prompt customization.</li>
+          <li>Implemented secure authentication, document management, vector search integration, and AI-powered question answering.</li>
+          <li><strong>Tech:</strong> FastAPI, React.js, Python, LLMs, RAG, Vector Database, JWT</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Natural Language to Database Query Generator</span>
+        </div>
+        <ul>
+          <li>Developed an <strong>AI-assisted system</strong> to convert natural language questions into structured database queries using LLM reasoning.</li>
+          <li>Implemented validation mechanisms for secure query generation before execution.</li>
+          <li>Explored <strong>prompt engineering</strong> techniques for accurate and safe query generation.</li>
+          <li><strong>Tech:</strong> Python, FastAPI, MongoDB, LLMs, Prompt Engineering</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">AI Resume Analyser &amp; Job Matching Tool</span>
+        </div>
+        <ul>
+          <li>Built an <strong>AI-assisted resume analysis</strong> system capable of extracting skills and generating improvement suggestions.</li>
+          <li>Compared resumes with job descriptions using <strong>semantic similarity</strong> techniques.</li>
+          <li>Designed structured prompts for consistent and well-formatted AI responses.</li>
+          <li><strong>Tech:</strong> Python, LLMs, Prompt Engineering, Embedding</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Food Ordering Web Application</span>
+        </div>
+        <ul>
+          <li>Developed a <strong>full-stack restaurant management</strong> and food ordering application.</li>
+          <li>Implemented customer ordering workflows, kitchen management, authentication, and REST APIs.</li>
+          <li>Designed a modular architecture to improve maintainability and scalability.</li>
+          <li><strong>Tech:</strong> Angular, Node.js, Express.js, MongoDB</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== EDUCATION ===== -->
+    <section class="section">
+      <h2 class="section-title">Education</h2>
+
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">B.Tech – Computer Science &amp; Engineering</span>
+          <span class="item-meta">2019 – 2023</span>
+        </div>
         <div class="item-subtitle">
-          Shri Ram Murti Smarak College of Engineering and Technology, Bareilly (AKTU) — 82.0%
+          Shri Ram Murti Smarak College of Engineering and Technology, Bareilly (AKTU) — <strong>82.0%</strong>
         </div>
       </div>
 
       <div class="item">
-        <span class="item-title">Intermediate (ISC Board)</span>
-        <span class="item-meta">2018 – 2019</span>
+        <div class="item-header">
+          <span class="item-title">Intermediate (ISC Board)</span>
+          <span class="item-meta">2018 – 2019</span>
+        </div>
         <div class="item-subtitle">
-          Girish Prasad Memorial School, Bareilly — 79.0%
+          Girish Prasad Memorial School, Bareilly — <strong>79.0%</strong>
         </div>
       </div>
 
       <div class="item">
-        <span class="item-title">High School (ISC Board)</span>
-        <span class="item-meta">2016 – 2017</span>
+        <div class="item-header">
+          <span class="item-title">High School (ISC Board)</span>
+          <span class="item-meta">2016 – 2017</span>
+        </div>
         <div class="item-subtitle">
-          Girish Prasad Memorial School, Bareilly — 81.83%
+          Girish Prasad Memorial School, Bareilly — <strong>81.83%</strong>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- GENAI PROJECTS -->
-    <div class="section">
-      <div class="section-title">Generative AI Projects</div>
+    <!-- ===== TECHNICAL SKILLS ===== -->
+    <section class="section">
+      <h2 class="section-title">Technical Skills</h2>
 
-      <!-- <div class="item">
-        <div class="item-title">AI Knowledge Base Chatbot (RAG – Prototype)</div>
-        <ul>
-          <li>Designed a Retrieval-Augmented Generation (RAG) based chatbot for document-based Q&A.</li>
-          <li>Implemented document ingestion, text chunking, embeddings, and contextual response generation.</li>
-          <li>Explored vector similarity search and API-driven AI backend architecture.</li>
-          <li><strong>Tech:</strong> Python, FastAPI, LLMs, RAG, MongoDB (metadata)</li>
-        </ul>
-      </div> -->
-
-      <div class="item">
-        <div class="item-title">AI Resume Analyzer & Job Matching Tool</div>
-        <ul>
-          <li>Built an AI-assisted system to analyze resumes and suggest improvements using LLM prompts.</li>
-          <li>Compared resumes with job descriptions using semantic similarity concepts.</li>
-          <li><strong>Tech:</strong> Python, Prompt Engineering, LLMs</li>
-        </ul>
+      <div style="margin-bottom: 12px;">
+        <strong style="font-size: 14px; color: var(--text-light);">Languages:</strong>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">C</span>
       </div>
 
-      <div class="item">
-        <div class="item-title">Natural Language to Database Query Generator</div>
-        <ul>
-          <li>Designed a proof-of-concept system to convert natural language into database queries.</li>
-          <li>Focused on safe query generation and backend validation patterns.</li>
-          <li><strong>Tech:</strong> FastAPI, MongoDB, LLM reasoning</li>
-        </ul>
+      <div style="margin-bottom: 12px;">
+        <strong style="font-size: 14px; color: var(--text-light);">Backend &amp; APIs:</strong>
+        <span class="skill-tag">FastAPI</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Express.js</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">JWT Authentication</span>
+        <span class="skill-tag">RBAC</span>
       </div>
 
-      <div class="item">
-        <div class="item-title">Local LLM Exploration using Ollama</div>
-        <ul>
-          <li>Explored locally hosted LLMs for offline inference and privacy-focused AI systems.</li>
-          <li>Evaluated prompt behavior and resource usage of open-source models.</li>
-          <li><strong>Tech:</strong> Ollama, Open-source LLMs</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SOFTWARE PROJECTS -->
-    <div class="section">
-      <div class="section-title">Software Development Projects</div>
-
-      <div class="item">
-        <div class="item-title">AUTH Mate — Authentication API & Mobile App</div>
-        <ul>
-          <li>Developed a versatile API for secure registration and login authentication.</li>
-          <li>Developed secure registration and login APIs using MVC architecture.</li>
-          <li><strong>Tech:</strong> React Native, Node.js, Express, MongoDB</li>
-        </ul>
+      <div style="margin-bottom: 12px;">
+        <strong style="font-size: 14px; color: var(--text-light);">Frontend:</strong>
+        <span class="skill-tag">React.js</span>
+        <span class="skill-tag">Angular</span>
+        <span class="skill-tag">HTML5/CSS3</span>
+        <span class="skill-tag">Bootstrap</span>
+        <span class="skill-tag">MUI</span>
       </div>
 
-      <div class="item">
-        <div class="item-title">Food Ordering Web Application (MEAN Stack)</div>
-        <ul>
-          <li>Built a full-featured web app for restaurants and customers, including order management and kitchen handling.</li>
-          <li>Followed modular architecture to ensure scalability.</li>
-          <li><strong>Tech:</strong> Angular, Node.js, Express, MongoDB</li>
-        </ul>
+      <div style="margin-bottom: 12px;">
+        <strong style="font-size: 14px; color: var(--text-light);">Database:</strong>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">PostgreSQL</span>
       </div>
 
-      <div class="item">
-        <div class="item-title">Osteoarthritis Disease Identification</div>
-        <ul>
-          <li>Deep learning model to detect osteoarthritis from knee X-ray images.</li>
-          <li><strong>Tech:</strong> Python, Deep Learning, Computer Vision</li>
-        </ul>
+      <div style="margin-bottom: 12px;">
+        <strong style="font-size: 14px; color: var(--text-light);">Generative AI:</strong>
+        <span class="skill-tag highlight">Langchain</span>
+        <span class="skill-tag highlight">LangGraph</span>
+        <span class="skill-tag highlight">LLMs</span>
+        <span class="skill-tag highlight">RAG</span>
+        <span class="skill-tag highlight">Prompt Engineering</span>
+        <span class="skill-tag highlight">Embedding</span>
+        <span class="skill-tag highlight">Vector Databases</span>
+        <span class="skill-tag highlight">Semantic Search</span>
+        <span class="skill-tag highlight">Ollama</span>
       </div>
 
-      <div class="item">
-        <div class="item-title">IoT-Based Smart Irrigation Control System</div>
-        <ul>
-          <li>Arduino ESP8266 with C language implementing a research based project to automate the irrigation pump according to the environmental conditions of crop. </li>
-          <!-- <li>Automated irrigation using ESP8266 based on environmental conditions.</li> -->
-          <li><strong>Tech:</strong> Java, Firebase, Arduino, ESP8266</li>
-        </ul>
+      <div>
+        <strong style="font-size: 14px; color: var(--text-light);">Tools &amp; Platforms:</strong>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Postman</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">AWS (Basic)</span>
+        <span class="skill-tag">Microsoft Azure</span>
       </div>
-    </div>
+    </section>
 
-    <!-- EXPERIENCE -->
-    <div class="section">
-      <div class="section-title">Experience</div>
-
-      <div class="item">
-        <span class="item-title">System Engineer — Tata Consultancy Services</span>
-        <span class="item-meta">Dec 2023 – Present</span>
-        <ul>
-          <li>Developed full-stack Java and web applications during enterprise training.</li>
-          <li>Worked with React.js and JavaScript for UI development.</li>
-          <li>Gained exposure to AWS and data-related technologies.</li>
-          <li>Upskilled in Generative AI concepts including LLMs and RAG pipelines.</li>
-        </ul>
-      </div>
-
-      <div class="item">
-        <span class="item-title">Software Engineer — Leasing Monk</span>
-        <span class="item-meta">Nov 2022 – Feb 2023</span>
-        <ul>
-          <li>Hands-on full-stack development with React.js and Node.js.</li>
-          <li>Built reusable components and responsive UI from Figma designs.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SKILLS -->
-    <div class="section">
-      <div class="section-title">Technical Skills</div>
-      <div class="skills">
-        <div>Python</div>
-        <div>Java</div>
-        <div>FastAPI</div>
-        <div>Node.js</div>
-        <div>React.js</div>
-        <div>Angular</div>
-        <div>MongoDB</div>
-        <div>LLMs & Prompt Engineering</div>
-        <div>RAG & Embeddings</div>
-        <div>Ollama (Local LLMs)</div>
-        <div>AWS (Basic)</div>
-      </div>
-    </div>
-
-    <!-- CERTIFICATIONS -->
-    <div class="section">
-      <div class="section-title">Certifications</div>
-      <ul>
+    <!-- ===== CERTIFICATIONS ===== -->
+    <section class="section">
+      <h2 class="section-title">Certifications</h2>
+      <ul class="cert-list">
         <li>Microsoft Azure Data Fundamentals (DP-900) — July 2024</li>
         <li>Deep Learning Training — Internshala (Jul–Aug 2022)</li>
         <li>Computer Vision — Kaggle (Jun–Jul 2022)</li>
       </ul>
-    </div>
+    </section>
 
+    <!-- ===== CORE COMPETENCIES ===== -->
+    <section class="section">
+      <h2 class="section-title">Core Competencies</h2>
+      <div class="skills-grid">
+        <span class="skill-tag">Generative AI Development</span>
+        <span class="skill-tag">FastAPI Backend</span>
+        <span class="skill-tag">REST API Design</span>
+        <span class="skill-tag">Retrieval-Augmented Generation (RAG)</span>
+        <span class="skill-tag">Prompt Engineering</span>
+        <span class="skill-tag">LLM Integration</span>
+        <span class="skill-tag">Authentication &amp; Authorization</span>
+        <span class="skill-tag">Agile Development</span>
+        <span class="skill-tag">Git Version Control</span>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
     <div class="footer">
-      © 2026 Bhupendra Kumar
+      © 2026 Bhupendra Kumar &nbsp;·&nbsp; Built with <span class="heart">❤️</span> &nbsp;·&nbsp; Always learning, always building
     </div>
 
   </div>
