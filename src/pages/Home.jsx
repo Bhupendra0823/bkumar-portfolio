@@ -134,7 +134,7 @@ const Home = () => {
               <a href="https://github.com/Bhupendra0823" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
                 <span style={styles.socialIcon}>🐙</span>
               </a>
-              <a href="https://linkedin.com/in/bhupendra-kumar-327514206" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
+              <a href="https://www.linkedin.com/in/bkumar0823/" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
                 <span style={styles.socialIcon}>🔗</span>
               </a>
               <a href="mailto:bkumar0823@gmail.com" style={styles.socialLink}>

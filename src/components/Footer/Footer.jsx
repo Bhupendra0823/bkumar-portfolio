@@ -22,7 +22,7 @@ const Footer = () => {
               GitHub
             </a>
             <span style={styles.contactDivider}>•</span>
-            <a href="https://linkedin.com/in/bhupendra-kumar-327514206" target="_blank" rel="noopener noreferrer" style={styles.contactLink}>
+            <a href="https://www.linkedin.com/in/bkumar0823/" target="_blank" rel="noopener noreferrer" style={styles.contactLink}>
               <span style={styles.contactIcon}>🔗</span>
               LinkedIn
             </a>
