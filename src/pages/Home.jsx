@@ -123,7 +123,7 @@ const Home = () => {
                 Experience
               </a>
               <span style={styles.quickLinkDivider}>•</span>
-              <a href="/learning" style={styles.quickLink}>
+              <a href="/learninglog" style={styles.quickLink}>
                 <span style={styles.quickLinkIcon}>📚</span>
                 Learning
               </a>
