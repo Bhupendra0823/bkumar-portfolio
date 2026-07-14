@@ -3,7 +3,7 @@ const ViewResume = () => {
     return (
         
             <a
-                href="https://bkumar0823.space/resume"
+                href="https://bkumar-portfolio.onrender.com/resume"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={styles.resumeBtn}
