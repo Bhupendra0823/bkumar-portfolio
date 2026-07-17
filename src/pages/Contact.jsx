@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
 import ViewResume from '../components/ViewResume/ViewResume.jsx'
+import React, { useState, useEffect } from 'react'
 
 const Contact = () => {
   const [visible, setVisible] = useState(false)
@@ -24,13 +24,39 @@ const Contact = () => {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setFormStatus('sending')
-    // The form will submit to getform.io
-    setTimeout(() => {
-      setFormStatus('sent')
-    }, 2000)
+
+    const form = e.target
+    const formData = new FormData(form)
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+
+      if (response.ok) {
+        setFormStatus('sent')
+        setFormData({ name: '', email: '', message: '' })
+        form.reset()
+        
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => {
+          setFormStatus('')
+        }, 5000)
+      } else {
+        setFormStatus('error')
+        setTimeout(() => setFormStatus(''), 3000)
+      }
+    } catch (error) {
+      setFormStatus('error')
+      setTimeout(() => setFormStatus(''), 3000)
+    }
   }
 
   return (
@@ -106,7 +132,7 @@ const Contact = () => {
           transitionDelay: '0.4s',
         }}>
           <form 
-            action="https://getform.io/f/akkepdwa" 
+            action="https://forminit.com/f/akkepdwa" 
             method="POST" 
             style={styles.form}
             onSubmit={handleSubmit}
@@ -162,8 +188,13 @@ const Contact = () => {
               style={{
                 ...styles.submitBtn,
                 opacity: formStatus === 'sending' ? 0.7 : 1,
+                background: formStatus === 'sent' 
+                  ? 'linear-gradient(135deg, #4ade80, #22d3ee)' 
+                  : formStatus === 'error'
+                  ? 'linear-gradient(135deg, #f87171, #ef4444)'
+                  : 'linear-gradient(135deg, #60a5fa, #a78bfa)',
               }}
-              disabled={formStatus === 'sending'}
+              disabled={formStatus === 'sending' || formStatus === 'sent'}
             >
               {formStatus === 'sending' ? (
                 <>
@@ -172,10 +203,23 @@ const Contact = () => {
                 </>
               ) : formStatus === 'sent' ? (
                 '✅ Message Sent!'
+              ) : formStatus === 'error' ? (
+                '❌ Error! Try again'
               ) : (
                 'Send Message →'
               )}
             </button>
+
+            {formStatus === 'sent' && (
+              <p style={styles.successMessage}>
+                Thank you! Your message has been sent successfully. I'll get back to you soon! 🎉
+              </p>
+            )}
+            {formStatus === 'error' && (
+              <p style={styles.errorMessage}>
+                Oops! Something went wrong. Please try again or contact me directly via email.
+              </p>
+            )}
           </form>
         </div>
 
@@ -201,16 +245,66 @@ const Contact = () => {
         }}>
           <p style={styles.socialLabel}>Connect with me</p>
           <div style={styles.socialLinks}>
-            <a href="https://github.com/Bhupendra0823" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
+            <a 
+              href="https://github.com/Bhupendra0823" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              style={styles.socialLink}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(96,165,250,0.2)'
+                e.currentTarget.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
               <span style={styles.socialIcon}>🐙</span>
             </a>
-            <a href="https://linkedin.com/in/bhupendra-kumar-327514206" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
+            <a 
+              href="https://linkedin.com/in/bhupendra-kumar-327514206" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              style={styles.socialLink}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(96,165,250,0.2)'
+                e.currentTarget.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
               <span style={styles.socialIcon}>🔗</span>
             </a>
-            <a href="mailto:bkumar0823@gmail.com" style={styles.socialLink}>
+            <a 
+              href="mailto:bkumar0823@gmail.com" 
+              style={styles.socialLink}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(96,165,250,0.2)'
+                e.currentTarget.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
               <span style={styles.socialIcon}>✉️</span>
             </a>
-            <a href="https://bkumar0823.space" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
+            <a 
+              href="https://bkumar0823.space" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              style={styles.socialLink}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(96,165,250,0.2)'
+                e.currentTarget.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
               <span style={styles.socialIcon}>🌐</span>
             </a>
           </div>
@@ -375,7 +469,7 @@ const styles = {
     border: '1px solid rgba(255,255,255,0.08)',
     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     cursor: 'default',
-    '&:hover': {
+    ':hover': {
       transform: 'translateY(-5px)',
       backgroundColor: 'rgba(255,255,255,0.08)',
     },
@@ -412,7 +506,7 @@ const styles = {
     textDecoration: 'none',
     fontWeight: '500',
     transition: 'color 0.3s',
-    '&:hover': {
+    ':hover': {
       color: '#93c5fd',
     },
   },
@@ -484,12 +578,12 @@ const styles = {
     outline: 'none',
     boxSizing: 'border-box',
     fontFamily: 'inherit',
-    '&:focus': {
+    ':focus': {
       borderColor: '#60a5fa',
       backgroundColor: 'rgba(255,255,255,0.08)',
       boxShadow: '0 0 0 3px rgba(96,165,250,0.1)',
     },
-    '&::placeholder': {
+    '::placeholder': {
       color: '#64748b',
     },
   },
@@ -508,12 +602,12 @@ const styles = {
     minHeight: '120px',
     fontFamily: 'inherit',
     boxSizing: 'border-box',
-    '&:focus': {
+    ':focus': {
       borderColor: '#60a5fa',
       backgroundColor: 'rgba(255,255,255,0.08)',
       boxShadow: '0 0 0 3px rgba(96,165,250,0.1)',
     },
-    '&::placeholder': {
+    '::placeholder': {
       color: '#64748b',
     },
   },
@@ -533,13 +627,14 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '8px',
-    '&:hover': {
+    ':hover': {
       transform: 'translateY(-2px)',
       boxShadow: '0 8px 25px rgba(96,165,250,0.3)',
     },
-    '&:disabled': {
+    ':disabled': {
       opacity: 0.7,
       cursor: 'not-allowed',
+      transform: 'none',
     },
   },
 
@@ -551,6 +646,22 @@ const styles = {
     borderTopColor: '#ffffff',
     borderRadius: '50%',
     animation: 'spin 0.8s linear infinite',
+  },
+
+  successMessage: {
+    color: '#4ade80',
+    marginTop: '12px',
+    textAlign: 'center',
+    fontSize: '14px',
+    fontWeight: '500',
+  },
+
+  errorMessage: {
+    color: '#f87171',
+    marginTop: '12px',
+    textAlign: 'center',
+    fontSize: '14px',
+    fontWeight: '500',
   },
 
   // NOTE
@@ -597,11 +708,6 @@ const styles = {
     textDecoration: 'none',
     transition: 'all 0.3s',
     border: '1px solid rgba(255,255,255,0.06)',
-    '&:hover': {
-      backgroundColor: 'rgba(96,165,250,0.15)',
-      transform: 'translateY(-3px)',
-      borderColor: 'rgba(96,165,250,0.3)',
-    },
   },
 
   socialIcon: {
