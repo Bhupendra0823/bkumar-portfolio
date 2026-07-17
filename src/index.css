@@ -9,25 +9,39 @@ html, body, #root {
   height: 100%;
 }
 
-
-.nav-desktop {
-  display: flex;
-  gap: 16px;
+/* Global responsive styles */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-.nav-hamburger {
-  display: none;
-  font-size: 26px;
-  color: white;
-  cursor: pointer;
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
+/* Better touch targets on mobile */
+button, a {
+  touch-action: manipulation;
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Mobile-first media queries */
 @media (max-width: 768px) {
-  .nav-desktop {
-    display: none;
+  .container {
+    padding: 0 16px;
   }
+}
 
-  .nav-hamburger {
-    display: block;
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
   }
 }

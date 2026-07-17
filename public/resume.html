@@ -193,7 +193,7 @@
     /* ===== ITEMS ===== */
     .item {
       margin-bottom: 16px;
-      padding: 14px 18px;
+      padding: 16px 20px;
       background: var(--bg);
       border-radius: 8px;
       border-left: 3px solid var(--primary);
@@ -203,6 +203,7 @@
     .item:hover {
       border-left-color: var(--secondary);
       background: #eef2ff;
+      transform: translateX(4px);
     }
 
     .item-header {
@@ -223,6 +224,7 @@
       font-size: 14px;
       color: var(--text-light);
       font-weight: 500;
+      margin-bottom: 4px;
     }
 
     .item-meta {
@@ -251,12 +253,39 @@
       color: var(--primary);
     }
 
+    .item li strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
     /* ===== SKILLS ===== */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 10px;
       margin-top: 4px;
+    }
+
+    .skill-group {
+      margin-bottom: 12px;
+    }
+
+    .skill-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-group-label {
+      font-size: 14px;
+      color: var(--text-light);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .skill-tag {
@@ -266,9 +295,9 @@
       border-radius: 20px;
       font-size: 13px;
       font-weight: 500;
-      text-align: center;
       border: 1px solid rgba(37, 99, 235, 0.1);
       transition: var(--transition);
+      display: inline-block;
     }
 
     .skill-tag:hover {
@@ -282,6 +311,11 @@
       background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
       color: #ffffff;
       border-color: transparent;
+    }
+
+    .skill-tag.highlight:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
     }
 
     /* ===== CERTIFICATIONS ===== */
@@ -309,6 +343,40 @@
       font-size: 16px;
     }
 
+    /* ===== DOWNLOAD BUTTON ===== */
+    .download-section {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 1px solid var(--border);
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 32px;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(96, 165, 250, 0.4);
+    }
+
+    .download-btn:active {
+      transform: translateY(0);
+    }
+
     /* ===== FOOTER ===== */
     .footer {
       text-align: center;
@@ -326,10 +394,12 @@
     }
 
     @keyframes heartbeat {
+
       0%,
       100% {
         transform: scale(1);
       }
+
       50% {
         transform: scale(1.15);
       }
@@ -390,6 +460,10 @@
       .item {
         padding: 12px 14px;
       }
+
+      .item:hover {
+        transform: translateX(2px);
+      }
     }
 
     @media (max-width: 480px) {
@@ -413,6 +487,13 @@
       .skill-tag {
         font-size: 12px;
         padding: 4px 10px;
+      }
+
+      .download-btn {
+        padding: 10px 24px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
       }
     }
 
@@ -442,6 +523,7 @@
       .item:hover {
         background: #f8fafc;
         border-left-color: var(--primary);
+        transform: none;
       }
 
       .skill-tag:hover {
@@ -456,6 +538,10 @@
 
       .footer .heart {
         animation: none;
+      }
+
+      .download-section {
+        display: none;
       }
     }
   </style>
@@ -525,13 +611,22 @@
         </div>
         <div class="item-subtitle">Tata Consultancy Services — New Delhi</div>
         <ul>
-          <li>Designed and developed enterprise AI applications using <strong>Python, FastAPI, React.js, PostgreSQL, REST APIs, and LLMs</strong>.</li>
-          <li>Contributing to an <strong>AI-powered healthcare Claim Audit</strong> platform, developing backend services and AI workflows to automate evidence collection and streamline audit processes.</li>
-          <li>Developing <strong>Agentic AI workflows</strong> using <strong>LangGraph</strong> for intelligent task orchestration, evidence retrieval, and AI-assisted claim analysis.</li>
-          <li>Engineered configurable <strong>Retrieval-Augmented Generation (RAG)</strong> pipelines supporting document ingestion, chunking strategies, vector retrieval, prompt customization, and AI response generation.</li>
-          <li>Developed a <strong>multi-tenant AI platform</strong> featuring Super Admin, Tenant Admin, and End User roles with secure tenant isolation and configurable AI workflows.</li>
-          <li>Implemented secure authentication and authorization using <strong>JWT</strong> and <strong>Role-Based Access Control (RBAC)</strong>.</li>
-          <li>Developed proof-of-concept AI applications including a <strong>Natural Language-to-Database Query Generator</strong> and an <strong>AI Resume Analyzer</strong> utilizing prompt engineering and semantic similarity techniques.</li>
+          <li>Designed and developed enterprise AI applications using <strong>Python, FastAPI, React.js, PostgreSQL,
+              REST APIs, and LLMs</strong>.</li>
+          <li>Contributing to an <strong>AI-powered healthcare Claim Audit</strong> platform, developing backend
+            services and AI workflows to automate evidence collection and streamline audit processes.</li>
+          <li>Developing <strong>Agentic AI workflows</strong> using <strong>LangGraph</strong> for intelligent task
+            orchestration, evidence retrieval, and AI-assisted claim analysis.</li>
+          <li>Engineered configurable <strong>Retrieval-Augmented Generation (RAG)</strong> pipelines supporting
+            document ingestion, chunking strategies, vector retrieval, prompt customization, and AI response generation.
+          </li>
+          <li>Developed a <strong>multi-tenant AI platform</strong> featuring Super Admin, Tenant Admin, and End User
+            roles with secure tenant isolation and configurable AI workflows.</li>
+          <li>Implemented secure authentication and authorization using <strong>JWT</strong> and <strong>Role-Based
+              Access Control (RBAC)</strong>.</li>
+          <li>Developed proof-of-concept AI applications including a <strong>Natural Language-to-Database Query
+              Generator</strong> and an <strong>AI Resume Analyzer</strong> utilizing prompt engineering and semantic
+            similarity techniques.</li>
         </ul>
       </div>
 
@@ -544,8 +639,10 @@
         <ul>
           <li>Completed full-stack web development training focused on modern JavaScript technologies.</li>
           <li>Developed responsive UI components using <strong>React.js</strong> based on Figma designs.</li>
-          <li>Collaborated with the development team to build reusable frontend components and improve application usability.</li>
-          <li>Worked with <strong>REST APIs</strong> and frontend integration following component-based architecture.</li>
+          <li>Collaborated with the development team to build reusable frontend components and improve application
+            usability.</li>
+          <li>Worked with <strong>REST APIs</strong> and frontend integration following component-based architecture.
+          </li>
         </ul>
       </div>
     </section>
@@ -559,10 +656,14 @@
           <span class="item-title">AI-Powered Claim Audit &amp; Evidence Collection Platform</span>
         </div>
         <ul>
-          <li>Contributing to an <strong>AI-powered healthcare claim auditing</strong> platform to streamline evidence collection and audit workflows.</li>
-          <li>Building <strong>Agentic AI workflows</strong> using <strong>LangGraph</strong> to automate evidence gathering, claim analysis, and intelligent audit assistance.</li>
-          <li>Developing backend services using <strong>FastAPI</strong> for claim processing, audit orchestration, and secure REST API integration.</li>
-          <li>Working with <strong>PostgreSQL</strong> to manage healthcare claim data, audit records, and application metadata.</li>
+          <li>Contributing to an <strong>AI-powered healthcare claim auditing</strong> platform to streamline evidence
+            collection and audit workflows.</li>
+          <li>Building <strong>Agentic AI workflows</strong> using <strong>LangGraph</strong> to automate evidence
+            gathering, claim analysis, and intelligent audit assistance.</li>
+          <li>Developing backend services using <strong>FastAPI</strong> for claim processing, audit orchestration, and
+            secure REST API integration.</li>
+          <li>Working with <strong>PostgreSQL</strong> to manage healthcare claim data, audit records, and application
+            metadata.</li>
           <li><strong>Tech:</strong> Python, FastAPI, React.js, PostgreSQL, LangGraph, Agentic AI, LLMs</li>
         </ul>
       </div>
@@ -572,10 +673,14 @@
           <span class="item-title">Multi-Tenant Enterprise RAG Platform</span>
         </div>
         <ul>
-          <li>Designed and implemented a <strong>multi-tenant enterprise RAG platform</strong> supporting Super Admin, Tenant Admin, and End User roles.</li>
-          <li>Built tenant onboarding and user management modules allowing organizations to independently manage AI configurations and knowledge repositories.</li>
-          <li>Developed configurable <strong>RAG pipelines</strong> supporting document upload, chunking strategies, Top-K retrieval, temperature, and prompt customization.</li>
-          <li>Implemented secure authentication, document management, vector search integration, and AI-powered question answering.</li>
+          <li>Designed and implemented a <strong>multi-tenant enterprise RAG platform</strong> supporting Super Admin,
+            Tenant Admin, and End User roles.</li>
+          <li>Built tenant onboarding and user management modules allowing organizations to independently manage AI
+            configurations and knowledge repositories.</li>
+          <li>Developed configurable <strong>RAG pipelines</strong> supporting document upload, chunking strategies,
+            Top-K retrieval, temperature, and prompt customization.</li>
+          <li>Implemented secure authentication, document management, vector search integration, and AI-powered question
+            answering.</li>
           <li><strong>Tech:</strong> FastAPI, React.js, Python, LLMs, RAG, Vector Database, JWT</li>
         </ul>
       </div>
@@ -585,7 +690,8 @@
           <span class="item-title">Natural Language to Database Query Generator</span>
         </div>
         <ul>
-          <li>Developed an <strong>AI-assisted system</strong> to convert natural language questions into structured database queries using LLM reasoning.</li>
+          <li>Developed an <strong>AI-assisted system</strong> to convert natural language questions into structured
+            database queries using LLM reasoning.</li>
           <li>Implemented validation mechanisms for secure query generation before execution.</li>
           <li>Explored <strong>prompt engineering</strong> techniques for accurate and safe query generation.</li>
           <li><strong>Tech:</strong> Python, FastAPI, MongoDB, LLMs, Prompt Engineering</li>
@@ -597,7 +703,8 @@
           <span class="item-title">AI Resume Analyser &amp; Job Matching Tool</span>
         </div>
         <ul>
-          <li>Built an <strong>AI-assisted resume analysis</strong> system capable of extracting skills and generating improvement suggestions.</li>
+          <li>Built an <strong>AI-assisted resume analysis</strong> system capable of extracting skills and generating
+            improvement suggestions.</li>
           <li>Compared resumes with job descriptions using <strong>semantic similarity</strong> techniques.</li>
           <li>Designed structured prompts for consistent and well-formatted AI responses.</li>
           <li><strong>Tech:</strong> Python, LLMs, Prompt Engineering, Embedding</li>
@@ -656,62 +763,74 @@
     <section class="section">
       <h2 class="section-title">Technical Skills</h2>
 
-      <div style="margin-bottom: 12px;">
-        <strong style="font-size: 14px; color: var(--text-light);">Languages:</strong>
-        <span class="skill-tag">Python</span>
-        <span class="skill-tag">Java</span>
-        <span class="skill-tag">JavaScript</span>
-        <span class="skill-tag">TypeScript</span>
-        <span class="skill-tag">C</span>
+      <div class="skill-group">
+        <span class="skill-group-label">Languages:</span>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">C</span>
+        </div>
       </div>
 
-      <div style="margin-bottom: 12px;">
-        <strong style="font-size: 14px; color: var(--text-light);">Backend &amp; APIs:</strong>
-        <span class="skill-tag">FastAPI</span>
-        <span class="skill-tag">Node.js</span>
-        <span class="skill-tag">Express.js</span>
-        <span class="skill-tag">REST APIs</span>
-        <span class="skill-tag">JWT Authentication</span>
-        <span class="skill-tag">RBAC</span>
+      <div class="skill-group">
+        <span class="skill-group-label">Backend &amp; APIs:</span>
+        <div class="skill-tags">
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Express.js</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">JWT Authentication</span>
+          <span class="skill-tag">RBAC</span>
+        </div>
       </div>
 
-      <div style="margin-bottom: 12px;">
-        <strong style="font-size: 14px; color: var(--text-light);">Frontend:</strong>
-        <span class="skill-tag">React.js</span>
-        <span class="skill-tag">Angular</span>
-        <span class="skill-tag">HTML5/CSS3</span>
-        <span class="skill-tag">Bootstrap</span>
-        <span class="skill-tag">MUI</span>
+      <div class="skill-group">
+        <span class="skill-group-label">Frontend:</span>
+        <div class="skill-tags">
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Angular</span>
+          <span class="skill-tag">HTML5/CSS3</span>
+          <span class="skill-tag">Bootstrap</span>
+          <span class="skill-tag">MUI</span>
+        </div>
       </div>
 
-      <div style="margin-bottom: 12px;">
-        <strong style="font-size: 14px; color: var(--text-light);">Database:</strong>
-        <span class="skill-tag">MongoDB</span>
-        <span class="skill-tag">SQL</span>
-        <span class="skill-tag">PostgreSQL</span>
+      <div class="skill-group">
+        <span class="skill-group-label">Database:</span>
+        <div class="skill-tags">
+          <span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">PostgreSQL</span>
+        </div>
       </div>
 
-      <div style="margin-bottom: 12px;">
-        <strong style="font-size: 14px; color: var(--text-light);">Generative AI:</strong>
-        <span class="skill-tag highlight">Langchain</span>
-        <span class="skill-tag highlight">LangGraph</span>
-        <span class="skill-tag highlight">LLMs</span>
-        <span class="skill-tag highlight">RAG</span>
-        <span class="skill-tag highlight">Prompt Engineering</span>
-        <span class="skill-tag highlight">Embedding</span>
-        <span class="skill-tag highlight">Vector Databases</span>
-        <span class="skill-tag highlight">Semantic Search</span>
-        <span class="skill-tag highlight">Ollama</span>
+      <div class="skill-group">
+        <span class="skill-group-label">Generative AI:</span>
+        <div class="skill-tags">
+          <span class="skill-tag highlight">Langchain</span>
+          <span class="skill-tag highlight">LangGraph</span>
+          <span class="skill-tag highlight">LLMs</span>
+          <span class="skill-tag highlight">RAG</span>
+          <span class="skill-tag highlight">Prompt Engineering</span>
+          <span class="skill-tag highlight">Embedding</span>
+          <span class="skill-tag highlight">Vector Databases</span>
+          <span class="skill-tag highlight">Semantic Search</span>
+          <span class="skill-tag highlight">Ollama</span>
+        </div>
       </div>
 
-      <div>
-        <strong style="font-size: 14px; color: var(--text-light);">Tools &amp; Platforms:</strong>
-        <span class="skill-tag">Git</span>
-        <span class="skill-tag">GitHub</span>
-        <span class="skill-tag">Postman</span>
-        <span class="skill-tag">VS Code</span>
-        <span class="skill-tag">AWS (Basic)</span>
-        <span class="skill-tag">Microsoft Azure</span>
+      <div class="skill-group">
+        <span class="skill-group-label">Tools &amp; Platforms:</span>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">AWS (Basic)</span>
+          <span class="skill-tag">Microsoft Azure</span>
+        </div>
       </div>
     </section>
 
@@ -741,9 +860,17 @@
       </div>
     </section>
 
+    <!-- ===== DOWNLOAD BUTTON ===== -->
+    <div class="download-section">
+      <a href="Bhupendra_Kumar_GenAI_17-07-2026.pdf" class="download-btn">
+        📄 Download Resume (PDF)
+      </a>
+    </div>
+
     <!-- ===== FOOTER ===== -->
     <div class="footer">
-      © 2026 Bhupendra Kumar &nbsp;·&nbsp; Built with <span class="heart">❤️</span> &nbsp;·&nbsp; Always learning, always building
+      © 2026 Bhupendra Kumar &nbsp;·&nbsp; Built with <span class="heart">❤️</span> &nbsp;·&nbsp; Always learning,
+      always building
     </div>
 
   </div>

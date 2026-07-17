@@ -1,15 +1,46 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Drawer,
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  useMediaQuery,
+  useTheme,
+  Container,
+  Avatar,
+  Stack,
+  alpha,
+} from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
+import CloseIcon from '@mui/icons-material/Close'
+import HomeIcon from '@mui/icons-material/Home'
+import CodeIcon from '@mui/icons-material/Code'
+import WorkIcon from '@mui/icons-material/Work'
+import SchoolIcon from '@mui/icons-material/School'
+import ContactMailIcon from '@mui/icons-material/ContactMail'
 import ViewResume from '../ViewResume/ViewResume'
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-  const closeMenu = () => setOpen(false)
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen)
+  }
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -18,394 +49,211 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close mobile menu on route change
   useEffect(() => {
-    closeMenu()
+    if (mobileOpen) {
+      setMobileOpen(false)
+    }
   }, [location])
 
-  // Close mobile menu on escape key
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') closeMenu()
-    }
-    window.addEventListener('keydown', handleEscape)
-    return () => window.removeEventListener('keydown', handleEscape)
-  }, [])
-
   const navLinks = [
-    { path: '/', label: 'Home', icon: '🏠' },
-    { path: '/projects', label: 'Projects', icon: '💻' },
-    { path: '/experience', label: 'Experience', icon: '💼' },
-    { path: '/learninglog', label: 'Learning', icon: '📚' },
-    { path: '/contact', label: 'Contact', icon: '📱' },
+    { path: '/', label: 'Home', icon: <HomeIcon /> },
+    { path: '/projects', label: 'Projects', icon: <CodeIcon /> },
+    { path: '/experience', label: 'Experience', icon: <WorkIcon /> },
+    { path: '/learninglog', label: 'Learning', icon: <SchoolIcon /> },
+    { path: '/contact', label: 'Contact', icon: <ContactMailIcon /> },
   ]
 
   const isActive = (path) => location.pathname === path
 
+  const drawer = (
+    <Box sx={{ width: 280, p: 2, height: '100%', bgcolor: '#0a0e27' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 700,
+            background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}
+        >
+          Bhupendra
+        </Typography>
+        <IconButton onClick={handleDrawerToggle}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+      <List>
+        {navLinks.map((link) => (
+          <ListItem key={link.path} disablePadding>
+            <ListItemButton
+              component={Link}
+              to={link.path}
+              sx={{
+                borderRadius: 2,
+                mb: 0.5,
+                bgcolor: isActive(link.path) ? alpha(theme.palette.primary.main, 0.1) : 'transparent',
+                borderLeft: isActive(link.path) ? `3px solid ${theme.palette.primary.main}` : '3px solid transparent',
+                '&:hover': {
+                  bgcolor: alpha(theme.palette.primary.main, 0.05),
+                },
+              }}
+            >
+              <ListItemIcon sx={{ color: isActive(link.path) ? 'primary.main' : 'text.secondary', minWidth: 40 }}>
+                {link.icon}
+              </ListItemIcon>
+              <ListItemText
+                primary={link.label}
+                sx={{
+                  '& .MuiListItemText-primary': {
+                    color: isActive(link.path) ? 'primary.main' : 'text.primary',
+                    fontWeight: isActive(link.path) ? 600 : 400,
+                  },
+                }}
+              />
+              {isActive(link.path) && (
+                <Box
+                  sx={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    bgcolor: 'primary.main',
+                  }}
+                />
+              )}
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider sx={{ my: 2, borderColor: 'rgba(255,255,255,0.06)' }} />
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+        <ViewResume />
+        <Stack direction="row" spacing={2}>
+          <IconButton
+            component="a"
+            href="https://github.com/Bhupendra0823"
+            target="_blank"
+            sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
+          >
+            🐙
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://linkedin.com/in/bhupendra-kumar-327514206"
+            target="_blank"
+            sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
+          >
+            🔗
+          </IconButton>
+          <IconButton
+            component="a"
+            href="mailto:bkumar0823@gmail.com"
+            sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
+          >
+            ✉️
+          </IconButton>
+        </Stack>
+        <Typography variant="caption" sx={{ color: 'text.disabled' }}>
+          © {new Date().getFullYear()} Bhupendra Kumar
+        </Typography>
+      </Box>
+    </Box>
+  )
+
   return (
     <>
-      <nav style={{
-        ...styles.navbar,
-        backgroundColor: scrolled ? 'rgba(10, 14, 39, 0.95)' : 'rgba(10, 14, 39, 0.85)',
-        backdropFilter: scrolled ? 'blur(20px)' : 'blur(10px)',
-        boxShadow: scrolled 
-          ? '0 4px 30px rgba(0,0,0,0.4)' 
-          : '0 2px 20px rgba(0,0,0,0.2)',
-        borderBottom: scrolled 
-          ? '1px solid rgba(255,255,255,0.05)' 
-          : '1px solid rgba(255,255,255,0.03)',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      }}>
-        {/* Logo */}
-        <Link to="/" style={styles.logo}>
-          <span style={styles.logoHighlight}>B</span>hupendra
-        </Link>
-
-        {/* Desktop Links */}
-        <div style={styles.navRight}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              style={{
-                ...styles.link,
-                color: isActive(link.path) ? '#60a5fa' : '#94a3b8',
-                fontWeight: isActive(link.path) ? '600' : '400',
-                borderBottom: isActive(link.path) ? '2px solid #60a5fa' : '2px solid transparent',
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{
+          bgcolor: scrolled
+            ? alpha(theme.palette.background.default, 0.95)
+            : alpha(theme.palette.background.default, 0.85),
+          backdropFilter: scrolled ? 'blur(20px)' : 'blur(10px)',
+          borderBottom: scrolled
+            ? '1px solid rgba(255,255,255,0.05)'
+            : '1px solid rgba(255,255,255,0.03)',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.4)' : 'none',
+        }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 0, md: 2 }, minHeight: 70 }}>
+            <Typography
+              component={Link}
+              to="/"
+              variant="h6"
+              sx={{
+                fontWeight: 700,
+                textDecoration: 'none',
+                color: 'text.primary',
+                '& span': {
+                  background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                },
               }}
             >
-              <span style={styles.linkIcon}>{link.icon}</span>
-              {link.label}
-            </Link>
-          ))}
-          <ViewResume />
-        </div>
+              <span>B</span>hupendra
+            </Typography>
 
-        {/* Hamburger - visible on mobile */}
-        <div
-          style={styles.hamburger}
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-          role="button"
-          tabIndex={0}
-        >
-          <div style={{
-            ...styles.hamburgerLine,
-            transform: open ? 'rotate(45deg) translate(5px, 5px)' : 'none',
-          }}></div>
-          <div style={{
-            ...styles.hamburgerLine,
-            opacity: open ? 0 : 1,
-            transform: open ? 'scaleX(0)' : 'none',
-          }}></div>
-          <div style={{
-            ...styles.hamburgerLine,
-            transform: open ? 'rotate(-45deg) translate(5px, -5px)' : 'none',
-          }}></div>
-        </div>
-      </nav>
+            {!isMobile ? (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                {navLinks.map((link) => (
+                  <Button
+                    key={link.path}
+                    component={Link}
+                    to={link.path}
+                    startIcon={link.icon}
+                    sx={{
+                      color: isActive(link.path) ? 'primary.main' : 'text.secondary',
+                      fontWeight: isActive(link.path) ? 600 : 400,
+                      borderBottom: isActive(link.path) ? '2px solid' : '2px solid transparent',
+                      borderColor: 'primary.main',
+                      borderRadius: 0,
+                      '&:hover': {
+                        color: 'primary.main',
+                        bgcolor: 'transparent',
+                      },
+                    }}
+                  >
+                    {link.label}
+                  </Button>
+                ))}
+                <ViewResume />
+              </Box>
+            ) : (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ color: 'text.secondary' }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
 
-      {/* Mobile Menu Overlay */}
-      {open && (
-        <div style={styles.overlay} onClick={closeMenu}></div>
-      )}
-
-      {/* Mobile Menu */}
-      <div style={{
-        ...styles.mobileMenu,
-        transform: open ? 'translateX(0)' : 'translateX(100%)',
-        opacity: open ? 1 : 0,
-        visibility: open ? 'visible' : 'hidden',
-      }}>
-        <div style={styles.mobileMenuHeader}>
-          <span style={styles.mobileLogo}>Bhupendra</span>
-          <button style={styles.mobileCloseBtn} onClick={closeMenu} aria-label="Close menu">
-            ✕
-          </button>
-        </div>
-        
-        <div style={styles.mobileLinksContainer}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={closeMenu}
-              style={{
-                ...styles.mobileLink,
-                color: isActive(link.path) ? '#60a5fa' : '#e2e8f0',
-                backgroundColor: isActive(link.path) ? 'rgba(96,165,250,0.1)' : 'transparent',
-                borderLeft: isActive(link.path) ? '3px solid #60a5fa' : '3px solid transparent',
-              }}
-            >
-              <span style={styles.mobileLinkIcon}>{link.icon}</span>
-              {link.label}
-              {isActive(link.path) && <span style={styles.mobileActiveDot}>●</span>}
-            </Link>
-          ))}
-        </div>
-
-        <div style={styles.mobileDivider}></div>
-
-        <div style={styles.mobileFooter}>
-          <ViewResume />
-          <div style={styles.mobileSocial}>
-            <a href="https://github.com/Bhupendra0823" target="_blank" rel="noopener noreferrer" style={styles.mobileSocialLink} aria-label="GitHub">
-              🐙
-            </a>
-            <a href="https://linkedin.com/in/bhupendra-kumar-327514206" target="_blank" rel="noopener noreferrer" style={styles.mobileSocialLink} aria-label="LinkedIn">
-              🔗
-            </a>
-            <a href="mailto:bkumar0823@gmail.com" style={styles.mobileSocialLink} aria-label="Email">
-              ✉️
-            </a>
-          </div>
-          <p style={styles.mobileCopy}>© {new Date().getFullYear()} Bhupendra Kumar</p>
-        </div>
-      </div>
-
-      {/* Add keyframes for animation */}
-      <style>
-        {`
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-
-          @keyframes slideIn {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-          }
-        `}
-      </style>
+      <Drawer
+        variant="temporary"
+        anchor="right"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 280 },
+        }}
+      >
+        {drawer}
+      </Drawer>
     </>
   )
 }
-
-const styles = {
-  navbar: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '70px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 40px',
-    zIndex: 1000,
-    boxSizing: 'border-box',
-  },
-
-  logo: {
-    color: '#ffffff',
-    fontWeight: '700',
-    fontSize: '20px',
-    letterSpacing: '1px',
-    textDecoration: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    flexShrink: 0,
-  },
-
-  logoHighlight: {
-    background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    fontSize: '22px',
-  },
-
-  navRight: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-  },
-
-  link: {
-    textDecoration: 'none',
-    fontSize: '14px',
-    padding: '8px 16px',
-    borderRadius: '8px',
-    transition: 'all 0.3s',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '6px',
-    letterSpacing: '0.3px',
-    whiteSpace: 'nowrap',
-  },
-
-  linkIcon: {
-    fontSize: '16px',
-  },
-
-  hamburger: {
-    display: 'none',
-    flexDirection: 'column',
-    gap: '5px',
-    cursor: 'pointer',
-    padding: '8px',
-    borderRadius: '8px',
-    transition: 'background 0.3s',
-    background: 'none',
-    border: 'none',
-    '&:hover': {
-      backgroundColor: 'rgba(255,255,255,0.05)',
-    },
-  },
-
-  hamburgerLine: {
-    width: '25px',
-    height: '2.5px',
-    backgroundColor: '#94a3b8',
-    borderRadius: '2px',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    transformOrigin: 'center',
-  },
-
-  // Mobile Menu
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100vw',
-    height: '100vh',
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    zIndex: 999,
-    backdropFilter: 'blur(4px)',
-    animation: 'fadeIn 0.3s ease',
-  },
-
-  mobileMenu: {
-    position: 'fixed',
-    top: 0,
-    right: 0,
-    width: '320px',
-    height: '100vh',
-    backgroundColor: '#0a0e27',
-    zIndex: 1001,
-    padding: '30px 25px',
-    display: 'flex',
-    flexDirection: 'column',
-    boxShadow: '-10px 0 40px rgba(0,0,0,0.5)',
-    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    borderLeft: '1px solid rgba(255,255,255,0.05)',
-    overflowY: 'auto',
-  },
-
-  mobileMenuHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '30px',
-    paddingBottom: '20px',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-  },
-
-  mobileLogo: {
-    fontSize: '20px',
-    fontWeight: '700',
-    color: '#ffffff',
-    background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-
-  mobileCloseBtn: {
-    background: 'none',
-    border: 'none',
-    color: '#94a3b8',
-    fontSize: '24px',
-    cursor: 'pointer',
-    padding: '5px 10px',
-    borderRadius: '8px',
-    transition: 'all 0.3s',
-    '&:hover': {
-      color: '#ffffff',
-      backgroundColor: 'rgba(255,255,255,0.05)',
-    },
-  },
-
-  mobileLinksContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '4px',
-    flex: 1,
-  },
-
-  mobileLink: {
-    textDecoration: 'none',
-    fontSize: '16px',
-    padding: '14px 18px',
-    borderRadius: '10px',
-    transition: 'all 0.3s',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    fontWeight: '500',
-    '&:hover': {
-      backgroundColor: 'rgba(255,255,255,0.05)',
-    },
-  },
-
-  mobileLinkIcon: {
-    fontSize: '20px',
-    width: '30px',
-  },
-
-  mobileActiveDot: {
-    marginLeft: 'auto',
-    color: '#60a5fa',
-    fontSize: '12px',
-  },
-
-  mobileDivider: {
-    height: '1px',
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    margin: '20px 0',
-  },
-
-  mobileFooter: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-  },
-
-  mobileSocial: {
-    display: 'flex',
-    gap: '16px',
-    justifyContent: 'center',
-  },
-
-  mobileSocialLink: {
-    fontSize: '22px',
-    textDecoration: 'none',
-    padding: '8px 12px',
-    borderRadius: '8px',
-    transition: 'all 0.3s',
-    '&:hover': {
-      backgroundColor: 'rgba(255,255,255,0.05)',
-    },
-  },
-
-  mobileCopy: {
-    fontSize: '12px',
-    color: '#475569',
-    textAlign: 'center',
-    margin: 0,
-  },
-}
-
-// Add media query styles
-const mediaStyles = `
-  @media (max-width: 768px) {
-    .nav-desktop {
-      display: none !important;
-    }
-  }
-`
-
-// Inject media query styles
-const styleTag = document.createElement('style')
-styleTag.textContent = mediaStyles
-document.head.appendChild(styleTag)
 
 export default Navbar
