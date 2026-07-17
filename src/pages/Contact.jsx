@@ -482,7 +482,7 @@ const Contact = () => {
             </IconButton>
             <IconButton
               component="a"
-              href="https://linkedin.com/in/bhupendra-kumar-327514206"
+              href="https://www.linkedin.com/in/bkumar0823/"
               target="_blank"
               sx={{
                 border: '1px solid rgba(255,255,255,0.06)',

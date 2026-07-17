@@ -139,7 +139,7 @@ const Navbar = () => {
           </IconButton>
           <IconButton
             component="a"
-            href="https://linkedin.com/in/bhupendra-kumar-327514206"
+            href="https://www.linkedin.com/in/bkumar0823/"
             target="_blank"
             sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main' } }}
           >
