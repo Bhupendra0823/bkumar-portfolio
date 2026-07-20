@@ -17,9 +17,10 @@ import {
   useMediaQuery,
   useTheme,
   Container,
-  Avatar,
   Stack,
   alpha,
+  Tooltip,
+  Badge,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import CloseIcon from '@mui/icons-material/Close'
@@ -28,17 +29,28 @@ import CodeIcon from '@mui/icons-material/Code'
 import WorkIcon from '@mui/icons-material/Work'
 import SchoolIcon from '@mui/icons-material/School'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
+import SmartToyIcon from '@mui/icons-material/SmartToy'
 import ViewResume from '../ViewResume/ViewResume'
+import ChatbotModal from '../Chatbot/ChatbotModal'
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [chatbotOpen, setChatbotOpen] = useState(false)
   const location = useLocation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
+  }
+
+  const handleChatbotOpen = () => {
+    setChatbotOpen(true)
+  }
+
+  const handleChatbotClose = () => {
+    setChatbotOpen(false)
   }
 
   useEffect(() => {
@@ -80,9 +92,42 @@ const Navbar = () => {
           Bhupendra
         </Typography>
         <IconButton onClick={handleDrawerToggle}>
-          <CloseIcon />
+          <CloseIcon sx={{ color: '#94a3b8' }} />
         </IconButton>
       </Box>
+
+      {/* Mobile Chatbot Button */}
+      <Button
+        fullWidth
+        variant="contained"
+        onClick={() => {
+          handleDrawerToggle()
+          handleChatbotOpen()
+        }}
+        sx={{
+          mb: 2,
+          borderRadius: 2,
+          background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
+          color: '#ffffff',
+          '&:hover': {
+            background: 'linear-gradient(135deg, #3b82f6, #7c3aed)',
+          },
+        }}
+        startIcon={<SmartToyIcon />}
+      >
+        Ask with Bot
+        <Badge
+          color="success"
+          variant="dot"
+          sx={{
+            ml: 1,
+            '& .MuiBadge-badge': {
+              animation: 'pulse 2s ease-in-out infinite',
+            },
+          }}
+        />
+      </Button>
+
       <List>
         {navLinks.map((link) => (
           <ListItem key={link.path} disablePadding>
@@ -179,23 +224,67 @@ const Navbar = () => {
       >
         <Container maxWidth="xl">
           <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 0, md: 2 }, minHeight: 70 }}>
-            <Typography
-              component={Link}
-              to="/"
-              variant="h6"
-              sx={{
-                fontWeight: 700,
-                textDecoration: 'none',
-                color: 'text.primary',
-                '& span': {
-                  background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                },
-              }}
-            >
-              <span>B</span>hupendra
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Typography
+                component={Link}
+                to="/"
+                variant="h6"
+                sx={{
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  color: 'text.primary',
+                  '& span': {
+                    background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  },
+                }}
+              >
+                <span>B</span>hupendra
+              </Typography>
+
+              {/* Chatbot Button - Desktop */}
+              {!isMobile && (
+                <Tooltip title="Ask with AI Bot about my experience">
+                  <Button
+                    variant="contained"
+                    onClick={handleChatbotOpen}
+                    startIcon={<SmartToyIcon />}
+                    sx={{
+                      borderRadius: '20px',
+                      background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
+                      color: '#ffffff',
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      fontSize: '13px',
+                      px: 2,
+                      py: 0.8,
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #3b82f6, #7c3aed)',
+                        transform: 'translateY(-1px)',
+                        boxShadow: '0 4px 15px rgba(96,165,250,0.3)',
+                      },
+                      '& .MuiButton-startIcon': {
+                        marginRight: '6px',
+                      },
+                    }}
+                  >
+                    Ask with Bot
+                    <Badge
+                      color="success"
+                      variant="dot"
+                      sx={{
+                        ml: 1,
+                        '& .MuiBadge-badge': {
+                          animation: 'pulse 2s ease-in-out infinite',
+                          backgroundColor: '#10b981',
+                        },
+                      }}
+                    />
+                  </Button>
+                </Tooltip>
+              )}
+            </Box>
 
             {!isMobile ? (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -252,6 +341,12 @@ const Navbar = () => {
       >
         {drawer}
       </Drawer>
+
+      {/* Chatbot Modal */}
+      <ChatbotModal 
+        open={chatbotOpen} 
+        onClose={handleChatbotClose} 
+      />
     </>
   )
 }

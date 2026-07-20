@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Navbar from './components/Navbar/Navbar.jsx'
 import { Routes, Route } from 'react-router-dom'
@@ -7,20 +6,22 @@ import Projects from './pages/Projects.jsx'
 import Home from './pages/Home.jsx'
 import Experience from './pages/Experience.jsx'
 import LearnerLog from './pages/LearnerLog.jsx'
+import ChatBot from './pages/ChatBot.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import UpdateLearnerLog from './pages/UpdateLearnerLog.jsx'
+
 function App() {
   return (
     <>
       <Navbar />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/experience" element={<Experience/>} />
-        <Route path="/LearningLog" element={<LearnerLog/>} />
-        <Route path="/update-learner-log" element={<UpdateLearnerLog/>} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/learninglog" element={<LearnerLog />} />
+        <Route path="/update-learner-log" element={<UpdateLearnerLog />} />
+        <Route path="/chatbot" element={<ChatBot isModal={false} />} />
       </Routes>
       <Footer />
     </>
