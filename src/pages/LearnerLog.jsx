@@ -47,7 +47,7 @@ const LearnerLog = () => {
   const theme = useTheme()
 
   useEffect(() => {
-    fetch('https://learninglogmanager.onrender.com/logs')
+    fetch('https://logmanager-rag.onrender.com/logs')
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch logs')
         return res.json()

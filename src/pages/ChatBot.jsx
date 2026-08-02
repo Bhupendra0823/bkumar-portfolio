@@ -15,6 +15,13 @@ import {
   Alert,
   Snackbar,
   Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Divider,
+  InputAdornment,
+  IconButton as MuiIconButton,
 } from '@mui/material'
 import {
   Send as SendIcon,
@@ -28,6 +35,11 @@ import {
   ExpandLess as ExpandLessIcon,
   FileCopy as CopyIcon,
   Check as CheckIcon,
+  Close as CloseIcon,
+  Visibility as VisibilityIcon,
+  VisibilityOff as VisibilityOffIcon,
+  CheckCircle as CheckCircleIcon,
+  Error as ErrorIcon,
 } from '@mui/icons-material'
 import { styled } from '@mui/material/styles'
 
@@ -180,6 +192,381 @@ const StatusDot = styled(Box)(({ theme, status }) => ({
 }))
 
 // ============================================================================
+// SETTINGS MODAL
+// ============================================================================
+
+const SettingsModal = ({ open, onClose, onUpdate, currentStatus }) => {
+  const [credentials, setCredentials] = useState({
+    aws_access_key_id: '',
+    aws_secret_access_key: '',
+    aws_session_token: '',
+  })
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' })
+
+  // Reset form when modal opens
+  useEffect(() => {
+    if (open) {
+      setCredentials({
+        aws_access_key_id: '',
+        aws_secret_access_key: '',
+        aws_session_token: '',
+      })
+      setError('')
+      setSuccess(false)
+    }
+  }, [open])
+
+  const handleChange = (field) => (event) => {
+    setCredentials({
+      ...credentials,
+      [field]: event.target.value,
+    })
+    setError('')
+    setSuccess(false)
+  }
+
+  const handleSubmit = async () => {
+    // Validate
+    if (!credentials.aws_access_key_id.trim()) {
+      setError('AWS Access Key ID is required')
+      return
+    }
+    if (!credentials.aws_secret_access_key.trim()) {
+      setError('AWS Secret Access Key is required')
+      return
+    }
+
+    setLoading(true)
+    setError('')
+    setSuccess(false)
+
+    try {
+      const result = await onUpdate(credentials)
+      if (result.success) {
+        setSuccess(true)
+        setSnackbar({
+          open: true,
+          message: '✅ AWS credentials updated successfully!',
+          severity: 'success',
+        })
+        // ✅ FIXED: Remove the reload and close modal after success
+        setTimeout(() => {
+          onClose()
+        }, 1500)
+      } else {
+        setError(result.error || 'Failed to update credentials')
+      }
+    } catch (err) {
+      setError(err.message || 'An error occurred')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' })
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      PaperProps={{
+        sx: {
+          background: 'rgba(10,14,39,0.98)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: '20px',
+          color: '#e2e8f0',
+          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)',
+        },
+      }}
+    >
+      <DialogTitle sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        pb: 2,
+      }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <SettingsIcon sx={{ color: '#60a5fa' }} />
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            AWS Credentials Settings
+          </Typography>
+        </Box>
+        <IconButton
+          onClick={onClose}
+          sx={{
+            color: '#64748b',
+            '&:hover': {
+              color: '#e2e8f0',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+            },
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+
+      <DialogContent sx={{ mt: 2 }}>
+        {/* Current Status */}
+        {currentStatus && (
+          <Box sx={{ 
+            p: 2, 
+            mb: 3, 
+            borderRadius: '12px',
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.06)',
+          }}>
+            <Typography variant="caption" sx={{ color: '#64748b', display: 'block', mb: 1 }}>
+              Current Configuration
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+              <Typography variant="body2" sx={{ color: '#94a3b8' }}>
+                Region: <span style={{ color: '#60a5fa' }}>{currentStatus.region || 'Not set'}</span>
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#94a3b8' }}>
+                LLM Model: <span style={{ color: '#60a5fa' }}>{currentStatus.llm_model || 'Not set'}</span>
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#94a3b8' }}>
+                Embedding Model: <span style={{ color: '#60a5fa' }}>{currentStatus.embedding_model || 'Not set'}</span>
+              </Typography>
+              {currentStatus.access_key_masked && (
+                <Typography variant="body2" sx={{ color: '#94a3b8' }}>
+                  Access Key: <span style={{ color: '#10b981' }}>{currentStatus.access_key_masked}</span>
+                </Typography>
+              )}
+            </Box>
+          </Box>
+        )}
+
+        <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)', my: 2 }} />
+
+        {/* Info Message */}
+        <Alert 
+          severity="info" 
+          sx={{ 
+            mb: 3,
+            backgroundColor: 'rgba(96,165,250,0.1)',
+            color: '#93c5fd',
+            '& .MuiAlert-icon': { color: '#60a5fa' },
+            borderRadius: '12px',
+          }}
+        >
+          <Typography variant="body2">
+            Update your AWS credentials here. This is useful for AWS Sandbox credentials that expire every hour.
+            No need to redeploy your application!
+          </Typography>
+        </Alert>
+
+        {/* Form Fields */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+          <TextField
+            label="AWS Access Key ID"
+            value={credentials.aws_access_key_id}
+            onChange={handleChange('aws_access_key_id')}
+            fullWidth
+            disabled={loading}
+            placeholder="AKIA..."
+            variant="outlined"
+            InputProps={{
+              sx: {
+                color: '#e2e8f0',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(255,255,255,0.1)',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(96,165,250,0.3)',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#60a5fa',
+                },
+              },
+            }}
+            InputLabelProps={{
+              sx: { color: '#64748b' },
+            }}
+          />
+
+          <TextField
+            label="AWS Secret Access Key"
+            value={credentials.aws_secret_access_key}
+            onChange={handleChange('aws_secret_access_key')}
+            fullWidth
+            disabled={loading}
+            placeholder="..."
+            type={showPassword ? 'text' : 'password'}
+            variant="outlined"
+            InputProps={{
+              sx: {
+                color: '#e2e8f0',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(255,255,255,0.1)',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(96,165,250,0.3)',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#60a5fa',
+                },
+              },
+              endAdornment: (
+                <InputAdornment position="end">
+                  <MuiIconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                    sx={{ color: '#64748b' }}
+                  >
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </MuiIconButton>
+                </InputAdornment>
+              ),
+            }}
+            InputLabelProps={{
+              sx: { color: '#64748b' },
+            }}
+          />
+
+          <TextField
+            label="AWS Session Token (Optional)"
+            value={credentials.aws_session_token}
+            onChange={handleChange('aws_session_token')}
+            fullWidth
+            disabled={loading}
+            placeholder="For temporary credentials only..."
+            variant="outlined"
+            helperText="Only required for temporary credentials (like AWS Sandbox)"
+            InputProps={{
+              sx: {
+                color: '#e2e8f0',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(255,255,255,0.1)',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(96,165,250,0.3)',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#60a5fa',
+                },
+              },
+            }}
+            InputLabelProps={{
+              sx: { color: '#64748b' },
+            }}
+            FormHelperTextProps={{
+              sx: { color: '#64748b' },
+            }}
+          />
+        </Box>
+
+        {/* Error Message */}
+        {error && (
+          <Alert 
+            severity="error" 
+            sx={{ 
+              mt: 2,
+              backgroundColor: 'rgba(239,68,68,0.1)',
+              color: '#fca5a5',
+              '& .MuiAlert-icon': { color: '#ef4444' },
+              borderRadius: '12px',
+            }}
+          >
+            {error}
+          </Alert>
+        )}
+
+        {/* Success Message */}
+        {success && (
+          <Alert 
+            severity="success" 
+            sx={{ 
+              mt: 2,
+              backgroundColor: 'rgba(16,185,129,0.1)',
+              color: '#6ee7b7',
+              '& .MuiAlert-icon': { color: '#10b981' },
+              borderRadius: '12px',
+            }}
+          >
+            Credentials updated successfully! The page will refresh automatically.
+          </Alert>
+        )}
+      </DialogContent>
+
+      <DialogActions sx={{ 
+        p: 2.5, 
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+        gap: 1,
+      }}>
+        <Button
+          onClick={onClose}
+          disabled={loading}
+          sx={{
+            color: '#94a3b8',
+            '&:hover': {
+              color: '#e2e8f0',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+            },
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          onClick={handleSubmit}
+          disabled={loading}
+          variant="contained"
+          sx={{
+            background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
+            color: '#ffffff',
+            borderRadius: '12px',
+            px: 3,
+            '&:hover': {
+              background: 'linear-gradient(135deg, #3b82f6, #7c3aed)',
+              transform: 'scale(1.02)',
+            },
+            '&:disabled': {
+              background: 'rgba(255,255,255,0.1)',
+              color: '#64748b',
+            },
+          }}
+        >
+          {loading ? (
+            <CircularProgress size={24} sx={{ color: '#ffffff' }} />
+          ) : (
+            'Update Credentials'
+          )}
+        </Button>
+      </DialogActions>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={5000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={() => setSnackbar({ ...snackbar, open: false })} 
+          severity={snackbar.severity}
+          sx={{ 
+            backgroundColor: 'rgba(10,14,39,0.95)',
+            color: '#e2e8f0',
+            '& .MuiAlert-icon': {
+              color: snackbar.severity === 'error' ? '#ef4444' : '#60a5fa',
+            },
+          }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+    </Dialog>
+  )
+}
+
+// ============================================================================
 // TYPING EFFECT COMPONENT
 // ============================================================================
 
@@ -227,12 +614,16 @@ const ChatbotPage = ({ isModal = false }) => {
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' })
   const [copied, setCopied] = useState(false)
   const [showContext, setShowContext] = useState({})
+  
+  // Settings modal state
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [updatingCredentials, setUpdatingCredentials] = useState(false)
 
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
 
   // API Base URL
-  const API_BASE = 'https://portfolio-rag-chatbot-lugp.onrender.com'
+  const API_BASE = 'https://logmanager-rag.onrender.com'
 
   // ==========================================================================
   // EFFECTS
@@ -304,6 +695,67 @@ const ChatbotPage = ({ isModal = false }) => {
       setInitializing(false)
     }
   }
+
+  const updateAWSCredentials = async (credentials) => {
+  setUpdatingCredentials(true)
+  
+  try {
+    const response = await fetch(`${API_BASE}/aws/credentials`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw new Error(errorData.detail || 'Failed to update credentials')
+    }
+
+    const data = await response.json()
+    
+    // ✅ FIXED: Update status without reloading
+    // Refresh the RAG status to reflect new credentials
+    await checkRagStatus()
+    
+    // Also update the ragStatus state with the new credentials
+    setRagStatus(prev => ({
+      ...prev,
+      aws_credentials: {
+        ...prev?.aws_credentials,
+        region: data.region || prev?.aws_credentials?.region,
+        llm_model: data.llm_model || prev?.aws_credentials?.llm_model,
+        embedding_model: data.embedding_model || prev?.aws_credentials?.embedding_model,
+        access_key_masked: credentials.aws_access_key_id.slice(0, 4) + '...' + credentials.aws_access_key_id.slice(-4),
+      }
+    }))
+    
+    setSnackbar({
+      open: true,
+      message: '✅ AWS credentials updated successfully!',
+      severity: 'success',
+    })
+
+    // Add system message
+    setMessages(prev => [...prev, {
+      id: Date.now(),
+      text: `🔄 AWS credentials updated. LLM: ${data.llm_model || 'Default'}, Embedding: ${data.embedding_model || 'Default'}`,
+      isUser: false,
+      isSystem: true,
+    }])
+
+    return { success: true, data }
+
+  } catch (error) {
+    setSnackbar({
+      open: true,
+      message: `Failed to update credentials: ${error.message}`,
+      severity: 'error',
+    })
+    return { success: false, error: error.message }
+  } finally {
+    setUpdatingCredentials(false)
+  }
+}
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return
@@ -410,6 +862,14 @@ const ChatbotPage = ({ isModal = false }) => {
     setSnackbar({ ...snackbar, open: false })
   }
 
+  const openSettings = () => {
+    setSettingsOpen(true)
+  }
+
+  const closeSettings = () => {
+    setSettingsOpen(false)
+  }
+
   // ==========================================================================
   // RENDER
   // ==========================================================================
@@ -504,14 +964,16 @@ const ChatbotPage = ({ isModal = false }) => {
                 </Tooltip>
               )}
 
-              <Tooltip title="Check status">
+              <Tooltip title="AWS Settings">
                 <IconButton 
-                  onClick={checkRagStatus}
+                  onClick={openSettings}
                   sx={{ 
                     color: '#60a5fa',
                     '&:hover': {
                       backgroundColor: 'rgba(96,165,250,0.1)',
+                      transform: 'rotate(90deg)',
                     },
+                    transition: 'transform 0.3s',
                   }}
                 >
                   <SettingsIcon />
@@ -775,6 +1237,14 @@ const ChatbotPage = ({ isModal = false }) => {
             </Typography>
           </Box>
         )}
+
+        {/* Settings Modal */}
+        <SettingsModal
+          open={settingsOpen}
+          onClose={closeSettings}
+          onUpdate={updateAWSCredentials}
+          currentStatus={ragStatus?.aws_credentials || null}
+        />
 
         {/* Snackbar */}
         <Snackbar
